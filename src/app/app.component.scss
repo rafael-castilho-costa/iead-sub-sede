@@ -64,7 +64,7 @@ header {
     flex-wrap: wrap;
     gap: 2rem;
   }
-  .footer-section___endereco{
+  .footer-section_endereco{
     h3 {
       font-weight: semi-bold;
       margin-bottom: 1rem;
@@ -72,17 +72,46 @@ header {
     }
     p {
       margin: 0;
+      display: flex;
+      font-size: 12px;
+      font-weight: light;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    strong {
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .footer__map {
+       text-align: center;
+       border-radius: 12px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe.mapa-igreja{
+       width: 100%;
+       max-width: 100%; /* ou defina uma largura fixa, tipo 800px */
+       height: 100%; /* ou 100%, 500px etc. */
+       border: 0;
+       border-radius: 12px;
+       display: block;
+       margin: 0 auto;
     }
   }
 
-  &__section{
-    flex: 1;
-    min-width: 220px;
+  .footer-section_igreja{
+     flex: 1;
+     min-width: 220px;
 
     h3 {
       font-weight: semi-bold;
       margin-bottom: 1rem;
       font-family: 'Poppins', sans-serif;
+      justify-content: center;
+      display: flex;
     }
     p, strong {
       font-size: 0.9rem;
@@ -96,6 +125,11 @@ header {
 
     li {
       margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: light;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
       a {
         text-decoration: none;
         color: #D8EBF2;
@@ -105,11 +139,35 @@ header {
         }
       }
     }
+
   }
+
+  .footer-section-midiasocial {
+    flex: 1;
+    min-width: 220px;
+
+    h3 {
+      display: flex;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    a{
+      display: flex;
+      justify-content: center;
+
+      &:hover{
+        transform: scale(2.0);
+      }
+    }
+
+  }
+
+
   .footer {
   background-color: #2f6ea0;
   color: white;
-  padding: 2rem 1rem;
+  padding: 1rem 2rem;
 
   &__content {
     display: flex;
@@ -125,6 +183,7 @@ header {
     h3 {
       font-weight: bold;
       margin-bottom: 1rem;
+      display: flex;
     }
 
     p,
@@ -152,15 +211,12 @@ header {
       }
     }
   }
-
-
 }
   }
 
   .footer__map {
     border-radius: 16px;
     width: 100%;
-    max-width: 280px;
     margin-bottom: 1rem;
   }
 
@@ -177,7 +233,7 @@ header {
     font-size: 0.8rem;
 
     .footer__logo {
-      width: 147px;
+      width: 100px;
       margin-bottom: 0.5rem;
     }
     p {
