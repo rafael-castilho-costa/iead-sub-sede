@@ -1,28 +1,41 @@
-<header class="header">
-  <div class="container">
-     <div class="logo">
-      <img src="assets/logo-iead-subsede.svg" alt="IEAD Logo" class="logo">
+<div class="app-wrapper">
+    <header class="header">
+
+      <div class="header-container">
+
+        <div class="logo">
+          <img src="assets/logo-iead-subsede.svg" alt="IEAD Logo" class="logo">
+        </div>
+
+
+      <button class="menu-toggle" (click)="menuAberto = !menuAberto">&#9776;</button>
+
+      <nav class="nav" [ngClass]="{'open': menuAberto}">
+        <a href="#sobre">Sobre a IEAD</a>
+        <a href="#programacao">Programação</a>
+        <a href="#ministerios">Ministérios</a>
+        <a href="#contribua">Contribua</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      </div>
+
+    </header>
+
+  <main class="main-content">
+
+    <div class="section-tema">
+      <div class="container">
+      <h1 class="section-tema__title">Igreja Evangélica Assembleia de Deus</h1>
+      <p class="section-tema__subtitle">Ministério Missão - Senador Canedo - GO</p>
+      </div>
     </div>
-  </div>
-  <nav class="nav">
-    <a href="#sobre">Sobre a IEAD</a>
-    <a href="#programacao">Programação</a>
-    <a href="#ministerios">Ministérios</a>
-    <a href="#contribua">Contribua</a>
-    <a href="#contato">Contato</a>
-  </nav>
-</header>
+    <router-outlet>
+    </router-outlet>
 
-<div class="section-tema">
-  <div class="container">
-    <h1 class="section-tema__title">Igreja Evangélica Assembleia de Deus</h1>
-    <p class="section-tema__subtitle">Ministério Missão - Senador Canedo - GO</p>
-  </div>
+  </main>
 
-</div>
-
-<footer class="footer">
-  <div class="footer__content container">
+  <footer class="footer">
+      <div class="footer-container">
     <div class="footer-section_endereco">
       <h3>Endereço:</h3>
 
@@ -51,14 +64,16 @@
     <div class="footer-section-midiasocial">
       <h3>Redes Sociais</h3>
       <a href="https://instagram.com" target="_blank">
-        <img src="assets/instagram.svg" alt="Instagram" class="footer__social" />
+        <img src="assets/instagram.svg" alt="Instagram" class="footer-social" />
       </a>
     </div>
-  </div>
+      </div>
 
-  <div class="footer__bottom">
+      <div class="footer__bottom">
     <img src="assets/logo-iead-subsede.svg" alt="Logo Igreja" class="footer__logo" />
     <p>Copyright © 2025 Igreja Evangélica Assembleia de Deus Ministério Missão. Todos os direitos reservados.</p>
     <span>Site desenvolvido com propósito para a glória de Deus.</span>
-  </div>
-</footer>
+      </div>
+  </footer>
+</div>
+
