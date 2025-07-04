@@ -1,0 +1,24 @@
+<header class="header">
+
+      <div class="header-container">
+
+        <div class="logo">
+          <img src="assets/logo-header-iead.svg" alt="IEAD Logo" class="logo">
+        </div>
+
+
+      <button class="menu-toggle" (click)="menuAberto = !menuAberto">
+       <span *ngIf="!menuAberto">&#9776;</span>
+       <span *ngIf="menuAberto">&#10005;</span>
+      </button>
+
+      <nav class="nav" [ngClass]="{'open': menuAberto}">
+        <a href="#sobre">Sobre a IEAD</a>
+        <a href="#programacao">Programação</a>
+        <a href="#ministerios">Ministérios</a>
+        <a href="#contribua">Contribua</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      </div>
+
+    </header>
