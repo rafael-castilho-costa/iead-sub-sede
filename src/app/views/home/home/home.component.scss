@@ -1,9 +1,214 @@
-.container-section1 {
+// Estilos para section de banner de crescimento
+.banner-crescimento {
   padding: 10rem 0;
+  background-image: url('/assets/image-tema-anual.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.container {
+.banner-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  color: #CCC3A0;
+  text-shadow: 1px 1px 8px #222;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+
+  h2 {
+    font-size: 10rem;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    margin: 0;
+    align-self: center;
+  }
+  h1 {
+    font-size: 3.5rem;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    margin: 0.5rem 0 1.5rem 0;
+  }
+  p {
+    font-size: 2rem;
+    font-family: 'Sora', sans-serif;
+    font-weight: 400;
+    margin: 0;
+    color: #EAEAEA;
+    strong {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: block;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@media (max-width:600px){
+  .banner-crescimento .banner-content h2 {font-size: 5rem;}
+  .banner-crescimento .banner-content h1 {font-size: 2rem;}
+  .banner-crescimento .banner-content p {font-size: 1.5rem;}
+  .banner-crescimento .banner-content strong {font-size: 1.1rem;}
+  .banner-crescimento {padding: 2rem 0.5rem; min-height: 280px; margin-top: 80px;}
+}
+
+// Estilos para section de programação
+.programacao {
+  padding: 2rem 1rem;
+
+  .programacao-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: #2E6EA6;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #2E6EA6;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .agenda-semanal{
+    width: 100%;
+    padding: 2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .agenda-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 800px;
+  }
+
+  .agenda {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-family: 'Anton', sans-serif;
+  }
+
+  .dia {
+    color: #3498f3;
+    font-size: 2.6rem;
+    font-weight: bold;
+    min-width: 110px;
+    text-align: right;
+    margin-right: 1rem;
+  }
+
+  .barra {
+    display: inline-block;
+    font-weight: bold;
+    width: 4px;
+    height: 3.5rem;
+    background: #2E6EA6;
+    margin: 0 1.2rem 0 0;
+  }
+
+  .horarios {
+    flex-direction: column;
+    align-self: center;
+  }
+
+  .hora {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-right: 1.2rem;
+    color: #111;
+    font-family: 'Aton', sans-serif;
+    display: inline-block;
+  }
+
+  .evento {
+    font-size: 2rem;
+    font-family: 'Anton', sans-serif;
+    color: #111;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .programacao-content p {
+    font-size: 1.5rem;
+    font-family: 'Sora', sans-serif;
+    color: #2E6EA6;
+    margin-top: 1rem;
+  }
+
+  .btn.btn-primary {
+    background: linear-gradient(90deg, #3498f3 0%, #2176c7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(52, 152, 243, 0.15);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    margin: 1.5rem auto 0;
+    display: block;
+    letter-spacing: 0.5px;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn.btn-primary:hover,
+  .btn.btn-primaryfocus {
+    background: linear-gradient(90deg, #2176c7 0%, #3498f3 100%);
+    box-shadow: 0 8px 24px rgba(52, 152, 243, 0.22);
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  @media (max-width: 800px) {
+    .programacao-content h2 {
+      font-size: 2rem;
+      text-align: center;
+    }
+    .agenda {
+      font-size: 1.3rem;
+      flex-direction: column;
+    }
+    .dia {
+      font-size: 1.9rem;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      align-self: center;
+    }
+    .barra {
+      margin: 0.5rem 0;
+      display: none !important;
+
+    }
+    .hora {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    .evento {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+  }
+
 }
