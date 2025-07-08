@@ -8,14 +8,34 @@
   </div>
 </section>
 
+<section class="ministerios">
+  <div class="ministerios-header">
+    <img src="/assets/teto.svg" alt="Teto" class="ministerios-roof" />
+    <h1>Ministérios</h1>
+    <p>Conheça nossos ministérios:</p>
+  </div>
+  <div class="ministerios-carousel">
+    <button class="carousel-arrow left" (click)="prev()" [disabled]="startIndex === 0">&#8592;</button>
+    <div class="ministerios-cards">
+      <div class="ministerio-card" *ngFor="let m of visibleMinisterios">
+        <h2>{{ m.titulo }}</h2>
+        <h3>{{ m.subtitulo }}</h3>
+        <div class="culto-info">
+          <span><strong>Culto :</strong></span>
+          <span>{{m.culto}}</span>
+        </div>
+        <button class="btn-acessar">Acessar</button>
+      </div>
+    </div>
+    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length">&#8594;</button>
+  </div>
+</section>
 
-<section class="programacao">
+<section class="programacao" id="programacao">
   <div class="programacao-content">
-
     <h2>Agenda Semanal</h2>
     <div class="agenda-semanal">
       <ul class="agenda-item">
-
         <li class="agenda">
           <span class="dia">Quarta</span>
           <span class="barra">|</span>
@@ -24,7 +44,6 @@
             <span class="evento">Culto de Ensino</span>
           </div>
         </li>
-
         <li class="agenda">
           <span class="dia">Sexta</span>
           <span class="barra">|</span>
@@ -33,14 +52,12 @@
             <span class="evento">Culto de Departamentos</span>
           </div>
         </li>
-
         <li class="agenda">
           <span class="dia">Domingo</span>
           <span class="barra">|</span>
           <div class="horarios">
             <span class="hora">08h30</span>
             <span class="evento">Escola Bíblica Dominical</span>
-
           </div>
         </li>
         <li class="agenda">
@@ -49,18 +66,13 @@
           <div class="horarios">
             <span class="hora">18h30</span>
             <span class="evento">Culto da Família</span>
-
           </div>
         </li>
-
       </ul>
-
     </div>
-
       <button class="btn btn-primary" routerLink="/agenda">
         Ver Agenda Completa
       </button>
-
       <p>Fique por dentro de tudo que está acontecendo em nossa igreja.<br>
         <strong>Confira nossa agenda de eventos!</strong>
       </p>

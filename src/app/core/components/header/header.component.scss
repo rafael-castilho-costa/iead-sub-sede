@@ -1,16 +1,16 @@
 header {
   left: 0;
   right: 0;
+  top:0;
+  z-index: 1000;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   background: #2E6EA6;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 
   .header-container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0.2rem 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

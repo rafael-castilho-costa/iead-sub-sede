@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { appConfig } from './app.config';
+import { provideRouter, Routes, withComponentInputBinding, withRouterConfig } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -11,3 +12,4 @@ export const routes: Routes = [
     loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
 ];
+
