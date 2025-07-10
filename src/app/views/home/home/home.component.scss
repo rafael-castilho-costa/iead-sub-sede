@@ -489,5 +489,28 @@
       }
     }
   }
+
+  @media (max-width: 900px) {
+    .banner-content-contribua {
+      flex-direction: column;
+      gap: 2rem;
+
+      .contribua-text{
+        h2 {
+          font-size: 1.5rem;
+        }
+        p {
+          font-size: 0.8rem;
+        }
+      }
+      .contribua-card {
+        align-self: center;
+      }
+    }
+    .banner-contribua {
+      padding: 3rem 0.5rem;
+      min-height: 280px;
+    }
+  }
 }
 
