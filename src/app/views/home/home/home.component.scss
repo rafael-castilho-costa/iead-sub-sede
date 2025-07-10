@@ -1,6 +1,6 @@
 // Estilos para section de banner de crescimento
 .banner-crescimento {
-  padding: 5rem 0;
+  padding: 10rem 0 5rem;
   background-image: url('/assets/image-tema-anual.svg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -384,12 +384,110 @@
     .ministerios-header h1 {
       font-size: 3rem;
     }
-
     .ministerios-header p {
       font-size: 1rem;
     }
-
   }
-
-
 }
+
+// Estilos para section de contribuição
+
+.banner-contribua {
+  padding: 5rem 0 5rem;
+  background-image: url('/assets/contribua.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .banner-content-contribua {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: white;
+    text-shadow: 1px 1px 8px #222;
+    display: flex;
+    gap: 150px;
+    align-self: center;
+    display: flex;
+
+
+    .contribua-card {
+      background: rgba(255, 255, 255, 0.42);
+      border-radius: 18px;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      min-width: 220px;
+      max-width: 270px;
+      flex: 1 1 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+
+      .contribua-image {
+        display: flex;
+        align-self: flex-start;
+        padding: 0 0.1rem;
+        margin-bottom: 1rem;
+
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 0 0.5rem 0;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: white;
+      }
+
+      .button-contribua {
+        background: linear-gradient(90deg, #3498f3 0%, #2176c7 100%);
+        color: #fff;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 0.7rem 2.2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(52, 152, 243, 0.15);
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        margin-top: auto;
+        align-self: center;
+
+        &:hover {
+          background: linear-gradient(90deg, #2176c7 0%, #3498f3 100%);
+          box-shadow: 0 8px 24px rgba(52, 152, 243, 0.22);
+          transform: translateY(-2px) scale(1.03);
+        }
+      }
+    }
+
+    .contribua-text {
+      align-self: center;
+      h2 {
+        font-family:'Anton', sans-serif;
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        color: white;
+      }
+      p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        color: #EAEAEA;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+
