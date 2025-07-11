@@ -1,1 +1,17 @@
-<p>agenda works!</p>
+<section class="container-agenda">
+  <div>
+    <h2>Agenda Mensal IEAD Sub-Sede</h2>
+    <button (click)="mesAnterior()">← Mês Anterior</button>
+<button (click)="proximoMes()">Próximo Mês →</button>
+
+  <div *ngIf="eventos.length === 0">
+    <p>Nenhum evento encontrado.</p>
+  </div>
+
+  <div *ngFor="let evento of eventos" class="card">
+    <h3>{{ evento.summary || 'Sem título' }}</h3>
+    <p><strong>Início:</strong> {{ evento.start?.dateTime || evento.start?.date | date:'short' }}</p>
+    <p>{{ evento.description || 'Sem descrição' }}</p>
+</div>
+  </div>
+</section>
