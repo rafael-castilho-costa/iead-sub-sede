@@ -1,17 +1,48 @@
 <section class="container-agenda">
-  <div>
-    <h2>Agenda Mensal IEAD Sub-Sede</h2>
-    <button (click)="mesAnterior()">← Mês Anterior</button>
-<button (click)="proximoMes()">Próximo Mês →</button>
+  <div class="agenda-header">
+    <h2>Agenda Mensal</h2>
+    <div class="agenda-controls">
+      <button (click)="mesAnterior()">← Mês Anterior</button>
 
-  <div *ngIf="eventos.length === 0">
+      <span class="mes-atual"> {{ dataAtual | date:'MMMM yyyy':'':'pt-BR'}} </span>
+
+      <button (click)="proximoMes()">Próximo Mês →</button>
+    </div>
+  </div>
+
+  <div *ngIf="eventos.length === 0" class="sem-eventos">
     <p>Nenhum evento encontrado.</p>
   </div>
 
-  <div *ngFor="let evento of eventos" class="card">
-    <h3>{{ evento.summary || 'Sem título' }}</h3>
-    <p><strong>Início:</strong> {{ evento.start?.dateTime || evento.start?.date | date:'short' }}</p>
-    <p>{{ evento.description || 'Sem descrição' }}</p>
-</div>
+  <div class="card-grid">
+    <div *ngFor="let evento of eventos; let i = index" class="event-card">
+      <div class="event-date">
+        <span class="weekday">{{ getDiaSemanaAbreviado(evento) }}</span>
+        <span class="day">{{ getDia(evento) }}</span>
+        <span class="month">{{ getMesAbreviado(evento) }}</span>
+      </div>
+      <div class="event-details">
+        <h3 class="event-title">{{ evento.summary || 'Sem título' }}</h3>
+        <p class="event-time">🕕 {{ getDataHoraFormatada(evento) }}</p>
+
+        <!--<ng-container *ngIf="evento.attachments">
+          <ng-container *ngFor="let att of evento.attachments">
+            <img
+              *ngIf="att.mimeType.startsWith('image/')"
+              [src]="'https://drive.google.com/uc?export=view&id=' + att.fileId"
+
+              class="event-img"
+              style="max-width: 100%; margin: 8px 0; border-radius: 8px;"
+            />
+            <small>{{ 'https://drive.google.com/uc?export=view&id=' + att.fileId }}</small>
+          </ng-container>
+        </ng-container>-->
+
+        <p class="event-desc" [class.expandido]="isDescricaoExpandida(i)">{{ evento.description || 'Sem descrição' }}</p>
+        <button *ngIf="evento.description?.length > 20" class="btn-vermais" (click)="toggleDescricao(i)">
+          {{ isDescricaoExpandida(i) ? 'Ver menos' : 'Ver mais' }}
+        </button>
+      </div>
+    </div>
   </div>
 </section>

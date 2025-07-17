@@ -4,10 +4,247 @@
   margin: 0 auto;
 }
 
-.card {
-  border: 1px solid #ccc;
+.agenda-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 50px;
+
+  h2 {
+    color: #1e3a8a;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+  }
+
+  .agenda-controls {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #2563eb;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+  }
+}
+
+.sem-eventos {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.event-card {
+  display: flex;
+  overflow: hidden;
+  max-width: 700px;
+  width: 100%;
+  flex-direction: row;
+  transition: all 0.3s ease;
+  gap: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
   padding: 1rem;
-  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+}
+
+.event-date {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 0.75rem;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  min-width: 60px;
+
+  .weekday {
+    font-size: 0.90rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #dbeafe;
+    display: block;
+    margin-bottom: 0.2rem;
+    font-family: 'Anton',sans-serif;
+  }
+
+  .day {
+    font-size: 2.6rem;
+    font-weight: bold;
+    font-family: 'Anton', sans-serif;
+  }
+
+  .month {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-family: 'Anton', sans-serif;
+  }
+}
+
+.event-details {
+  flex-grow: 1;
+
+  .event-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    font-family: 'Poppins', sans-serif;
+
+
+  }
+
+  p {
+      font-family: 'Poppins', sans-serif;
+    }
+
+  .event-time {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+    color: #374151;
+
+
+  }
+
+  .event-desc {
+    max-height: 100px;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    transition: max-height 0.3s ease;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+
+    &.expandido {
+      max-height: none;
+    }
+
+  }
+  .btn-vermais {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+}
+
+@media (max-width: 920px) {
+
+  .container-agenda {
+    padding: 5rem 0.5rem;
+  }
+  .event-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-date {
+    margin-bottom: 0.5rem;
+  }
+
+  .agenda-controls {
+    //flex-direction: column;
+
+    align-items: center;
+
+
+    span {
+      font-size: 1rem;
+    }
+  }
+
+  .mes-atual {
+      font-size: 1.2rem;
+      justify-items: center;
+      text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+  .container-agenda {
+    padding: 5rem 0.2rem;
+  }
+
+  .agenda-header h2 {
+    font-size: 2.5rem;
+  }
+
+  .card-grid {
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .event-card {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .event-date {
+    font-size: 0.95rem;
+    padding: 0.3rem 0;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .event-details .event-title {
+    font-size: 1rem;
+  }
+
+  .mes-atual {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+  }
+}
+
+.mes-atual {
+  text-transform: capitalize;
+  margin: 0 12px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  color: #1d4ed8;
+  font-size: 1.5rem;
+}
+
+.event-img {
+  max-width: 1100px;
+  margin: 8px 0;
+  border-radius: 8px;
 }
