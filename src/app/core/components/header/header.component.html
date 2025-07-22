@@ -2,10 +2,9 @@
 
       <div class="header-container">
 
-        <div class="logo">
+        <div [routerLink]="['/']" class="logo">
           <img src="assets/logo-header-iead.svg" alt="IEAD Logo" class="logo">
         </div>
-
 
       <button class="menu-toggle" (click)="menuAberto = !menuAberto">
        <span *ngIf="!menuAberto">&#9776;</span>
@@ -13,7 +12,17 @@
       </button>
 
       <nav class="nav" [ngClass]="{'open': menuAberto}">
-        <a href="#sobre">Sobre a IEAD</a>
+
+        <div class="dropdown" (click)="toggleSubMenu()">
+          <a href="#" class="dropdown-toggle" (click)="$event.preventDefault()">Sobre a IEAD</a>
+
+          <ul class="dropdown-menu" *ngIf="subMenuAberto">
+            <li><a [routerLink]="['/historia']">História</a></li>
+            <li><a [routerLink]="['/liderança']">Liderança</a></li>
+            <li><a [routerLink]="['/valores']">Missão e Valores</a></li>
+          </ul>
+        </div>
+
         <a [routerLink]="['/agenda']">Programação</a>
         <a [routerLink]="['/ministerios']">Ministérios</a>
         <a [routerLink]="['contribuicao']">Contribua</a>

@@ -11,6 +11,58 @@
   justify-content: center;
   text-align: center;
 }
+.pastores-section {
+  padding: 3rem 1rem;
+
+
+  h1 {
+    font-family: 'Anton', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #2E6EA6;
+  }
+
+  .pastores-layout {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 2rem;
+  }
+
+  .pastores-quote{
+    text-align: center;
+    font-style: italic;
+    margin: 2rem 0;
+    font-family: 'Poppins', sans-serif;
+    color: #A63333;
+  }
+
+  .pastores-texto {
+    flex: 1;
+    min-width: 300px;
+
+    h3 {
+      font-size: 1.7rem;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: #A63333;
+    }
+
+    p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      text-align:center ;
+    }
+  }
+
+}
 
 .banner-content {
   max-width: 1200px;
@@ -390,6 +442,13 @@
   }
 }
 
+.reforma-section {
+  background-color: #2E6EA6;
+  padding: 3rem 1rem;
+  color: #fff;
+  text-align: center;
+}
+
 // Estilos para section de contribuição
 
 .banner-contribua {
@@ -513,4 +572,5 @@
     }
   }
 }
+
 

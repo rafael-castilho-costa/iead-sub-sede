@@ -8,6 +8,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
+
+
 export class HeaderComponent {
   menuAberto = false;
+  subMenuAberto = false;
+
+  toggleSubMenu() {
+  this.subMenuAberto = !this.subMenuAberto;
+  }
+
 }
+

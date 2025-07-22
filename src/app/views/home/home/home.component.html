@@ -8,6 +8,27 @@
   </div>
 </section>
 
+<section class="pastores-section" id="pastores">
+  <h1>Pastores Locais</h1>
+
+  <div class="pastores-layout">
+    <div class="pastores-texto">
+      <h3>Pr. Sebastião Santos & Pra. Edinair Rocha</h3>
+      <p>O casal pastoral lidera com dedicação a Igreja Sub-sede Setor 3 desde 2023.
+        O Pastor Sebastião, com mais de 30 anos de ministério, e a Pastora Edinair têm sido instrumentos de Deus
+        na promoção de melhorias, fortalecimento da comunhão e no cuidado com cada irmão da congregação.
+        Seu trabalho tem marcado uma nova fase de crescimento espiritual e união na igreja local.</p>
+    </div>
+    <div class="pastores-imagem">
+      <img src="assets/pastores-photo.svg" alt="Pr. Sebastião Santos e Pra. Edinair" />
+    </div>
+
+  </div>
+  <div class="pastores-quote">
+    <p>"A nossa missão é cuidar, ensinar e guiar cada membro da nossa igreja no caminho do Senhor."</p>
+  </div>
+</section>
+
 <section class="ministerios" id="ministerios">
   <div class="ministerios-header">
     <img src="/assets/teto.svg" alt="Teto" class="ministerios-roof" />
@@ -37,7 +58,15 @@
     <div class="agenda-semanal">
       <ul class="agenda-item">
         <li class="agenda">
-          <span class="dia">Quarta</span>
+          <span class="dia"><strong>1°Primeiro Sábado do Mês</strong></span>
+          <span class="barra">|</span>
+          <div class="horarios">
+            <span class="hora">18h30</span>
+            <span class="evento">Santa Ceia do Senhor</span>
+          </div>
+        </li>
+        <li class="agenda">
+          <span class="dia"><strong>Quarta</strong></span>
           <span class="barra">|</span>
           <div class="horarios">
             <span class="hora">19h30</span>
@@ -45,7 +74,7 @@
           </div>
         </li>
         <li class="agenda">
-          <span class="dia">Sexta</span>
+          <span class="dia"><strong>Sexta</strong></span>
           <span class="barra">|</span>
           <div class="horarios">
             <span class="hora">19h30</span>
@@ -53,7 +82,7 @@
           </div>
         </li>
         <li class="agenda">
-          <span class="dia">Domingo</span>
+          <span class="dia"><strong>Domingo</strong></span>
           <span class="barra">|</span>
           <div class="horarios">
             <span class="hora">08h30</span>
@@ -61,7 +90,7 @@
           </div>
         </li>
         <li class="agenda">
-          <span class="dia">Domingo</span>
+          <span class="dia"><strong>Domingo</strong></span>
           <span class="barra">|</span>
           <div class="horarios">
             <span class="hora">18h30</span>
@@ -77,6 +106,33 @@
         <strong>Confira nossa agenda de eventos!</strong>
       </p>
   </div>
+
+</section>
+
+<section class="reforma-section" id="reforma">
+
+  <div class="reforma-content">
+    <h2>Reforma da Igreja</h2>
+    <p>Estamos passando por um momento de grande transformação e crescimento.
+      A reforma da nossa igreja é um passo importante para melhor servir a nossa comunidade.
+      Acompanhe as novidades e participe desse processo conosco!</p>
+    <button class="btn btn-primary" [routerLink]="['/reforma']">Saiba Mais</button>
+  </div>
+  <!--<div class="reforma-carrosel">
+    <carousel [showIndicators]="showIndicador">
+      <slide *ngFor="let slide of slides; let index=index">
+        <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">
+        <div class="carousel-caption">
+          <h4>Slide {{index}}</h4>
+          <p>{{slide.text}}</p>
+        </div>
+      </slide>
+    </carousel>
+    <br/>
+    <div>
+      <button type="button" class="btn btn-info" (click)="switchIndicador()">Habilitar ou Desabilitar Indicador</button>
+    </div>
+  </div>-->
 
 </section>
 

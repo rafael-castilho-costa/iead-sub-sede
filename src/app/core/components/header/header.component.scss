@@ -30,6 +30,36 @@ header {
     z-index: 1001;
   }
 
+  .dropdown {
+    position: relative;
+  }
+  .dropdown-toggle{
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    background-color: #2E6EA6;
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+  }
+
+  .dropdown-menu li a{
+    text-decoration: none;
+    color: #D8EBF2;
+  }
+
+
+
   @media (max-width: 1545px) {
 
 
@@ -98,6 +128,7 @@ header {
     height: 100px;
     width: auto;
     object-fit: contain;
+    cursor: pointer;
   }
 
   .nav {
