@@ -1,6 +1,14 @@
+import Swiper from 'swiper';
+
+import {Navigation, Pagination, Autoplay } from 'swiper/modules';
+
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+
+
+Swiper.use([Navigation, Pagination, Autoplay]);
 
 interface Ministerio {
   titulo: string;
@@ -15,7 +23,11 @@ interface Ministerio {
   styleUrl: './home.component.scss',
   standalone: true,
 })
+
 export class HomeComponent {
+    slideAtual = 0;
+    intervalId: any;
+
   ministerios: Ministerio[] = [
     {
       titulo:'Ovelhas de Jesus',
@@ -48,7 +60,10 @@ export class HomeComponent {
   startIndex = 0;
 
   ngOnInit() {
-    this.updateVisibleCards();
+     if (typeof window !== 'undefined') {
+      this.updateVisibleCards();
+      this.iniciarAutoSlide();
+  }
   }
 
   @HostListener('window:resize')
@@ -91,5 +106,40 @@ export class HomeComponent {
       this.startIndex ++;
     }
   }
+
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  iniciarAutoSlide() {
+    this.intervalId = setInterval(() => {
+      this.nextSlide();
+    }, 5000);
+  }
+
+  prevSlide() {
+    this.slideAtual = (this.slideAtual - 1 + this.imagens.length) % this.imagens.length;
+  }
+
+  nextSlide() {
+    this.slideAtual = (this.slideAtual + 1) % this.imagens.length;
+  }
+
+  goToSlide(index: number) {
+    this.slideAtual = index;
+  }
+
+  imagens: string[] = [
+    'assets/imagens/reforma-externa-durante1.jpeg',
+    'assets/imagens/reforma-externa-durante2.jpeg',
+    'assets/imagens/reforma-externa-durante3.jpg',
+    'assets/imagens/reforma-externa-durante4.jpeg',
+    'assets/imagens/reforma-externa-durante5.jpeg',
+    'assets/imagens/reforma-externa-durante6.jpeg',
+    'assets/imagens/reforma-externa-durante7.jpeg',
+  ];
 
 }

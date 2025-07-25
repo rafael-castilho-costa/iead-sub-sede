@@ -112,13 +112,29 @@
 <section class="reforma-section" id="reforma">
   <h1>Reforma da Igreja</h1>
 
-  <div class="reforma-layout">
+  <div class="reforma-conteudo">
+    <div class="carousel-container">
+      <button class="nav left" (click)="prevSlide()"></button>
 
-    <div class="reforma-image">
-      <img src="/assets/reforma-igreja.svg" alt="Reforma da Igreja" />
+      <div class="carousel-slide">
+        <img [src]="imagens[slideAtual]" alt="Imagem {{ slideAtual + 1}}" class="carousel-image"/>
+      </div>
+
+      <button class="nav right" (click)="nextSlide()"></button>
+
+      <div class="carousel-indicators">
+      <span
+        *ngFor="let imagem of imagens; let i = index"
+        [class.active]="i === slideAtual"
+        (click)="goToSlide(i)">
+      </span>
     </div>
 
-    <div class="reforma-content">
+    </div>
+
+
+
+    <div class="reforma-description">
     <p>Estamos passando por um momento de grande transformação e crescimento.
       A reforma da nossa igreja é um passo importante para melhor servir a nossa comunidade.
       Acompanhe as novidades e participe desse processo conosco!</p>
