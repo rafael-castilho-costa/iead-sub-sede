@@ -114,14 +114,9 @@
 
   <div class="reforma-conteudo">
     <div class="carousel-container">
-      <button class="nav left" (click)="prevSlide()"></button>
-
       <div class="carousel-slide">
         <img [src]="imagens[slideAtual]" alt="Imagem {{ slideAtual + 1}}" class="carousel-image"/>
       </div>
-
-      <button class="nav right" (click)="nextSlide()"></button>
-
       <div class="carousel-indicators">
       <span
         *ngFor="let imagem of imagens; let i = index"

@@ -539,27 +539,6 @@
     transition: opacity 0.3s ease-in-out;
   }
 
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2rem;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  .nav.left {
-    left: 10px;
-  }
-
-  .nav.right {
-    right: 10px;
-  }
-
   .carousel-indicators {
     display: flex;
     justify-content: center;
