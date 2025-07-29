@@ -14,7 +14,6 @@
 .pastores-section {
   padding: 3rem 1rem;
 
-
   h1 {
     font-family: 'Anton', sans-serif;
     font-weight: 900;
@@ -26,6 +25,8 @@
 
   .pastores-layout {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     max-width: 1100px;
@@ -42,8 +43,8 @@
   }
 
   .pastores-texto {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 300px;
+    text-align: left;
 
     h3 {
       font-size: 1.7rem;
@@ -62,6 +63,8 @@
   }
 
 }
+
+
 
 .banner-content {
   max-width: 1200px;
@@ -101,13 +104,6 @@
   }
 }
 
-@media (max-width:600px){
-  .banner-crescimento .banner-content h2 {font-size: 5rem;}
-  .banner-crescimento .banner-content h1 {font-size: 2rem;}
-  .banner-crescimento .banner-content p {font-size: 1.5rem;}
-  .banner-crescimento .banner-content strong {font-size: 1.1rem;}
-  .banner-crescimento {padding: 2rem 0.5rem; min-height: 280px; margin-top: 60px;}
-}
 
 // Estilos para section de programação
 .programacao {
@@ -161,7 +157,7 @@
     font-size: 1.7rem;
     font-weight: bold;
     min-width: 110px;
-    text-align: right;
+
     margin-right: 1rem;
   }
 
@@ -229,38 +225,6 @@
     transform: translateY(-2px) scale(1.03);
   }
 
-  @media (max-width: 800px) {
-    .programacao-content h2 {
-      font-size: 2rem;
-      text-align: center;
-    }
-    .agenda {
-      font-size: 1.3rem;
-      flex-direction: column;
-    }
-    .dia {
-      font-size: 1.9rem;
-      justify-content: center;
-      text-align: center;
-      margin-bottom: 0.5rem;
-      align-self: center;
-    }
-    .barra {
-      margin: 0.5rem 0;
-      display: none !important;
-
-    }
-    .hora {
-      margin-right: 0;
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-    }
-    .evento {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
-  }
 }
 
 // Estilos para section de ministerios
@@ -398,46 +362,6 @@
     flex-wrap: wrap;
     max-width: 1200px;
   }
-
-  @media (max-width: 900px){
-    .ministerios-carousel {
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: center;
-
-      .ministerios-cards {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-        max-width: 95vw;
-      }
-
-      .carousel-arrow {
-        position: static;
-        margin: 0.5rem 0 0.5rem 0;
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-    .ministerios-cards {
-      gap: 0.5rem;
-    }
-    .ministerio-card {
-      min-width: 180px;
-      max-width: 90vw;
-    }
-    .ministerios-header h1 {
-      font-size: 3rem;
-    }
-    .ministerios-header p {
-      font-size: 1rem;
-    }
-  }
 }
 
 .reforma-section {
@@ -453,7 +377,7 @@
     font-weight: 900;
     color: #fff;
     margin-bottom: 0.5rem;
-  }
+    }
 
   .reforma-conteudo {
     display: flex;
@@ -558,16 +482,6 @@
   .carousel-indicators span.active {
   background-color: #333;
   }
-
-  @media (max-width: 768px) {
-    .nav {
-      font-size: 1.5rem;
-      padding: 0.3rem 0.7rem;
-    }
- }
-
-
-
 }
 
 // Estilos para section de contribuição
@@ -591,7 +505,7 @@
     color: white;
     text-shadow: 1px 1px 8px #222;
     display: flex;
-    gap: 150px;
+    gap: 2rem;
     align-self: center;
     display: flex;
 
@@ -669,8 +583,130 @@
       }
     }
   }
+}
 
-  @media (max-width: 900px) {
+@media (max-width:600px){
+  .banner-crescimento .banner-content h2 {font-size: 5rem;}
+  .banner-crescimento .banner-content h1 {font-size: 2rem;}
+  .banner-crescimento .banner-content p {font-size: 1.5rem;}
+  .banner-crescimento .banner-content strong {font-size: 1.1rem;}
+  .banner-crescimento {padding: 2rem 0.5rem; min-height: 280px; margin-top: 60px;}
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .pastores-section {
+      padding: 1rem 1rem;
+
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      .pastores-layout {
+       flex-direction: column;
+       align-items: center;
+
+       .pastores-texto {
+          text-align: center;
+          min-width: 100%;
+
+          h3 {
+          font-size: 1.3rem;
+          }
+
+          p {
+            font-size: 1rem;
+          }
+        }
+
+
+
+      }
+    }
+
+    .pastores-imagem img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .programacao-content h2 {
+      font-size: 2rem;
+      text-align: center;
+    }
+    .agenda {
+      font-size: 1.3rem;
+      flex-direction: column;
+    }
+    .dia {
+      font-size: 1.9rem;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      align-self: center;
+    }
+    .barra {
+      margin: 0.5rem 0;
+      display: none !important;
+
+    }
+    .hora {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    .evento {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .reforma-section h1 {
+      font-size: 2rem;
+    }
+
+
+
+  }
+
+ @media (max-width: 900px) {
+    .ministerios-carousel {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+
+      .ministerios-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        max-width: 95vw;
+      }
+
+      .carousel-arrow {
+        position: static;
+        margin: 0.5rem 0 0.5rem 0;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .ministerios-cards {
+      gap: 0.5rem;
+    }
+    .ministerio-card {
+      min-width: 180px;
+      max-width: 90vw;
+    }
+    .ministerios-header h1 {
+      font-size: 3rem;
+    }
+    .ministerios-header p {
+      font-size: 1rem;
+    }
     .banner-content-contribua {
       flex-direction: column;
       gap: 2rem;
@@ -692,6 +728,4 @@
       min-height: 280px;
     }
   }
-}
-
 
