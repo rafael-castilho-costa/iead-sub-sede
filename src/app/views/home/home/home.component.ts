@@ -2,13 +2,15 @@ import Swiper from 'swiper';
 
 import {Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 
 
 Swiper.use([Navigation, Pagination, Autoplay]);
+
+
 
 interface Ministerio {
   titulo: string;
@@ -18,10 +20,10 @@ interface Ministerio {
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  standalone: true,
+  styleUrls: ['./home.component.scss'],
 })
 
 export class HomeComponent {
@@ -59,20 +61,24 @@ export class HomeComponent {
   visibleCards = 4;
   startIndex = 0;
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit() {
-     if (typeof window !== 'undefined') {
+     if (isPlatformBrowser(this.platformId)) {
       this.updateVisibleCards();
       this.iniciarAutoSlide();
   }
   }
 
+
   @HostListener('window:resize')
   onResize() {
-    this.updateVisibleCards();
+    if (isPlatformBrowser(this.platformId)) {
+      this.updateVisibleCards();
+    }
   }
 
   updateVisibleCards() {
-    if (typeof window === 'undefined') return;
     const width = window.innerWidth;
     if (width < 600) {
       this.visibleCards = 1;
