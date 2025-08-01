@@ -1,0 +1,62 @@
+.container-liderancas {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main-content {
+  flex: 1;
+}
+.header {
+  text-align: center;
+  padding: 7rem 0 2rem;
+
+  .titulo-section-liderancas {
+    color: #2E6EA6;
+    font-family: 'Anton', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+  }
+  p {
+    font-size: 1.2rem;
+    color: #4A5568;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+
+.liderancas-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+
+  .liderancas-cards {
+    background-color: white;
+    border-radius: 12px;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+    text-align: center;
+
+  }
+
+  .liderancas-cards img {
+    width: 60%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .liderancas-cards h3 {
+    font-size: 1.7rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    color: #A63333;
+  }
+}
+
+
+
+

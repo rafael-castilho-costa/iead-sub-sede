@@ -25,7 +25,18 @@ export const routes: Routes = [
   {
     path: 'ministerios',
     loadChildren: () => import('./views/ministerios/ministerios.module').then(m => m.MinisteriosModule)
+  },
+  {
+    path: 'liderancas',
+    loadChildren: () => import('./views/lideranças/liderancas.module').then(m => m.LiderancasModule)
+  },
+  {
+    path: 'historia',
+    loadChildren: () => import('./views/historia/historia.module').then(m => m.HistoriaModule)
+  },
+  {
+    path: 'missao',
+    loadChildren: () => import('./views/missao/missao.module').then(m => m.MissaoModule)
   }
-
 ];
 
