@@ -139,13 +139,13 @@ export class HomeComponent {
   }
 
   imagens: string[] = [
-    'assets/imagens/reforma-externa-durante1.jpeg',
-    'assets/imagens/reforma-externa-durante2.jpeg',
-    'assets/imagens/reforma-externa-durante3.jpg',
-    'assets/imagens/reforma-externa-durante4.jpeg',
-    'assets/imagens/reforma-externa-durante5.jpeg',
-    'assets/imagens/reforma-externa-durante6.jpeg',
-    'assets/imagens/reforma-externa-durante7.jpeg',
+    'assets/reforma/reforma-externa-durante1.jpeg',
+    'assets/reforma/reforma-externa-durante2.jpeg',
+    'assets/reforma/reforma-externa-durante3.jpg',
+    'assets/reforma/reforma-externa-durante4.jpeg',
+    'assets/reforma/reforma-externa-durante5.jpeg',
+    'assets/reforma/reforma-externa-durante6.jpeg',
+    'assets/reforma/reforma-externa-durante7.jpeg',
   ];
 
 }
