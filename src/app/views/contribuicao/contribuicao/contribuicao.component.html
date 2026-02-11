@@ -1,1 +1,49 @@
-<p>contribuicao works!</p>
+<section class="contribuicao">
+  <div class="contribuicao-wrapper">
+    <header class="contribuicao-header">
+      <h1>Doações e Ofertas via Pix</h1>
+      <p>Escolha a forma que preferir: chave Pix ou QR Code.</p>
+    </header>
+
+    <div class="contribuicao-grid">
+      <article class="info-card">
+        <h2>Como doar pela chave Pix</h2>
+        <ol>
+          <li>Abra o app do seu banco e selecione a opcao <strong>Pix</strong>.</li>
+          <li>Clique em <strong>Pagar</strong> e escolha <strong>Chave Pix</strong>.</li>
+          <li>Digite a chave abaixo e confirme os dados do recebedor.</li>
+          <li>Informe o valor da oferta/doacao e conclua a transferencia.</li>
+        </ol>
+
+        <div class="pix-key-box">
+          <span>Chave Pix:</span>
+          <strong>{{ pixKey }}</strong>
+        </div>
+
+        <button type="button" class="btn-copiar" (click)="copiarChavePix()">
+          Copiar chave Pix
+        </button>
+      </article>
+
+      <article class="qrcode-card">
+        <h2>Como doar pelo QR Code</h2>
+        <p>
+          No app do banco, selecione <strong>Pix</strong>, depois <strong>Pagar com QR Code</strong>,
+          e escaneie o codigo.
+        </p>
+
+        <img
+          *ngIf="qrCodeDisponivel"
+          [src]="pixQrCodePath"
+          alt="QR Code para doacoes e ofertas via Pix"
+          class="qrcode-image"
+          (error)="tratarErroQrCode()"
+        />
+
+        <div class="qrcode-placeholder" *ngIf="!qrCodeDisponivel">
+          Adicione a imagem do QR Code em <code>src/assets/pix-qrcode.svg</code>.
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
