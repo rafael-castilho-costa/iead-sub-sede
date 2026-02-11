@@ -37,6 +37,10 @@ export const routes: Routes = [
   {
     path: 'missao',
     loadChildren: () => import('./views/missao/missao.module').then(m => m.MissaoModule)
+  },
+  {
+    path: 'reforma',
+    loadComponent: () => import('./views/reforma/reforma.component').then((m) => m.ReformaComponent)
   }
 ];
 

@@ -1,4 +1,4 @@
-<section class="banner-crescimento">
+﻿<section class="banner-crescimento">
   <div class="banner-content">
     <h2>2026</h2>
     <h1>O Ano de Efraim</h1>
@@ -36,79 +36,71 @@
     <p>Conheça nossos ministérios:</p>
   </div>
   <div class="ministerios-carousel">
-    <button class="carousel-arrow left" (click)="prev()" [disabled]="startIndex === 0">&#8592;</button>
+    <button class="carousel-arrow left" (click)="prev()" [disabled]="startIndex === 0" aria-label="Ver ministérios anteriores">&#10094;</button>
     <div class="ministerios-cards">
       <div class="ministerio-card" *ngFor="let m of visibleMinisterios">
         <h2>{{ m.titulo }}</h2>
-        <h3>{{ m.subtitulo }}</h3>
+        <h3 class="ministerio-subtitulo">{{ m.subtitulo }}</h3>
         <div class="culto-info">
-          <span><strong>Culto :</strong></span>
-          <span>{{m.culto}}</span>
+          <span class="culto-label">Culto</span>
+          <span class="culto-horario">{{m.culto}}</span>
         </div>
-        <!-- botão desativado temporariamente
+        <!-- botÃ£o desativado temporariamente
         <button class="btn-acessar">Acessar</button>
         -->
       </div>
     </div>
-    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length">&#8594;</button>
+    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length" aria-label="Ver prÃ³ximos ministÃ©rios">&#10095;</button>
   </div>
 </section>
 
 <section class="programacao" id="programacao">
   <div class="programacao-content">
     <h2>Agenda Semanal</h2>
+
     <div class="agenda-semanal">
       <ul class="agenda-item">
-        <li class="agenda">
-          <span class="dia"><strong>1°Primeiro Sábado do Mês</strong></span>
-          <span class="barra">|</span>
-          <div class="horarios">
-            <span class="hora">18h30</span>
-            <span class="evento">Santa Ceia do Senhor</span>
-          </div>
+        <li class="agenda-card">
+          <span class="agenda-dia">1° Sábado do Mês</span>
+          <span class="agenda-hora">18h30</span>
+          <span class="agenda-evento">Santa Ceia do Senhor</span>
         </li>
-        <li class="agenda">
-          <span class="dia"><strong>Quarta</strong></span>
-          <span class="barra">|</span>
-          <div class="horarios">
-            <span class="hora">19h30</span>
-            <span class="evento">Culto de Ensino</span>
-          </div>
+
+        <li class="agenda-card">
+          <span class="agenda-dia">Quarta-feira</span>
+          <span class="agenda-hora">19h30</span>
+          <span class="agenda-evento">Culto de Ensino</span>
         </li>
-        <li class="agenda">
-          <span class="dia"><strong>Sexta</strong></span>
-          <span class="barra">|</span>
-          <div class="horarios">
-            <span class="hora">19h30</span>
-            <span class="evento">Culto de Departamentos</span>
-          </div>
+
+        <li class="agenda-card">
+          <span class="agenda-dia">Sexta-feira</span>
+          <span class="agenda-hora">19h30</span>
+          <span class="agenda-evento">Culto de Departamentos</span>
         </li>
-        <li class="agenda">
-          <span class="dia"><strong>Domingo</strong></span>
-          <span class="barra">|</span>
-          <div class="horarios">
-            <span class="hora">08h30</span>
-            <span class="evento">Escola Bíblica Dominical</span>
-          </div>
+
+        <li class="agenda-card">
+          <span class="agenda-dia">Domingo pela manhã</span>
+          <span class="agenda-hora">08h30</span>
+          <span class="agenda-evento">Escola Biblica Dominical</span>
         </li>
-        <li class="agenda">
-          <span class="dia"><strong>Domingo</strong></span>
-          <span class="barra">|</span>
-          <div class="horarios">
-            <span class="hora">18h30</span>
-            <span class="evento">Culto da Família</span>
-          </div>
+
+        <li class="agenda-card">
+          <span class="agenda-dia">Domingo anoite</span>
+          <span class="agenda-hora">18h30</span>
+          <span class="agenda-evento">Culto da Familia</span>
         </li>
       </ul>
     </div>
-      <button class="btn btn-primary" [routerLink]="['/agenda']">
-        Ver Agenda Completa
-      </button>
-      <p>Fique por dentro de tudo que está acontecendo em nossa igreja.<br>
-        <strong>Confira nossa agenda de eventos!</strong>
-      </p>
-  </div>
 
+    <button class="btn btn-primary" [routerLink]="['/agenda']">
+      Ver Agenda Completa
+    </button>
+
+    <p>
+      Fique por dentro de tudo que esta acontecendo em nossa igreja.<br>
+      <strong>Confira nossa agenda de eventos!</strong>
+    </p>
+  </div>
 </section>
 
 <section class="reforma-section" id="reforma">
@@ -159,7 +151,7 @@
       <img src="/assets/coracao-contribua.svg" alt="Contribua" class="contribua-image" />
       <h2>Doações e Ofertas</h2>
       <br><p>Contribua com a obra do Senhor.</p>
-      <button class="button-contribua">Contribuir</button>
+      <button class="button-contribua" [routerLink]="['/contribuicao']">Contribuir</button>
     </div>
   </div>
 </section>

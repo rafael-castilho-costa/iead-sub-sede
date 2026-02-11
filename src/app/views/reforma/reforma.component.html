@@ -1,0 +1,51 @@
+<section class="reforma-page">
+  <div class="reforma-wrapper">
+    <header class="reforma-hero">
+      <p class="tag">Reforma da Igreja</p>
+      <h1>Um projeto de fé, unidade e cuidado com a casa do Senhor.</h1>
+      <p class="intro">
+        A reforma da nossa igreja é um passo importante para continuar servindo à comunidade
+        com excelência, acolhimento e estrutura adequada para cada culto e atividade.
+      </p>
+    </header>
+
+    <div class="reforma-conteudo">
+      <article class="bloco-texto">
+        <h2>Sobre a nossa reforma</h2>
+        <p>
+          Estamos realizando melhorias na estrutura física para oferecer um ambiente mais seguro,
+          organizado e preparado para receber irmãos, crianças, visitantes e famílias.
+        </p>
+        <p>
+          Cada etapa concluída representa cuidado com a obra de Deus e compromisso com o crescimento
+          da igreja local.
+        </p>
+      </article>
+
+      <article class="bloco-contribuicao">
+        <h2>A importância da contribuição dos membros</h2>
+        <p>
+          A participação de cada membro faz diferença real no andamento da reforma. Quando contribuímos,
+          fortalecemos a comunhão e ajudamos a transformar planos em resultados concretos para toda a igreja.
+        </p>
+        <ul>
+          <li *ngFor="let item of frentesContribuicao">{{ item }}</li>
+        </ul>
+
+        <button class="btn-contribuir" [routerLink]="['/contribuicao']">
+          Quero Contribuir
+        </button>
+      </article>
+    </div>
+
+    <section class="galeria">
+      <h2>Registro das etapas da reforma</h2>
+      <div class="galeria-grid">
+        <figure class="galeria-item" *ngFor="let imagem of imagens; let i = index">
+          <img [src]="imagem" [alt]="'Etapa da reforma ' + (i + 1)" loading="lazy" />
+          <figcaption>Etapa {{ i + 1 }}</figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+</section>

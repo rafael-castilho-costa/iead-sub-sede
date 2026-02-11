@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -11,6 +11,9 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({
 
 
+      }),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top'
       }),
       withComponentInputBinding()
     ),

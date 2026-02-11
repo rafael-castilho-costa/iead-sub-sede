@@ -90,8 +90,6 @@ export class HomeComponent {
       this.visibleCards = 1;
     } else if (width < 1200) {
       this.visibleCards = 2;
-    } else if (width < 1391) {
-      this.visibleCards = 3;
     } else {
       this.visibleCards = 4;
     }

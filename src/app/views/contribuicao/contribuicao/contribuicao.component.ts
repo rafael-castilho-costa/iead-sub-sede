@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ContribuicaoComponent {
   readonly pixKey = 'senadorcanedo@adgoiania.com.br';
-  readonly pixQrCodePath = '/assets/pix-qrcode.png';
+  readonly pixQrCodePath = '/assets/pix-qrcode.svg';
   qrCodeDisponivel = true;
 
   copiarChavePix(): void {
