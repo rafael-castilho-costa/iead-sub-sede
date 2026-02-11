@@ -1,33 +1,44 @@
 <header class="header">
+  <div class="mobile-backdrop" *ngIf="menuAberto" (click)="fecharMenu()"></div>
 
-      <div class="header-container">
+  <div class="header-container">
+    <div [routerLink]="['/']" class="logo" (click)="aoClicarLink()">
+      <img src="assets/logo-header-iead.svg" alt="IEAD Logo">
+    </div>
 
-        <div [routerLink]="['/']" class="logo">
-          <img src="assets/logo-header-iead.svg" alt="IEAD Logo" class="logo">
-        </div>
+    <button
+      class="menu-toggle"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-label]="menuAberto ? 'Fechar menu' : 'Abrir menu'"
+      [attr.aria-expanded]="menuAberto"
+      aria-controls="menu-principal">
+      <span *ngIf="!menuAberto">&#9776;</span>
+      <span *ngIf="menuAberto">&#10005;</span>
+    </button>
 
-      <button class="menu-toggle" (click)="menuAberto = !menuAberto">
-       <span *ngIf="!menuAberto">&#9776;</span>
-       <span *ngIf="menuAberto">&#10005;</span>
-      </button>
+    <nav class="nav" id="menu-principal" [ngClass]="{ open: menuAberto }">
+      <div class="dropdown">
+        <button
+          type="button"
+          class="dropdown-toggle"
+          (click)="toggleSubMenu()"
+          [attr.aria-expanded]="subMenuAberto"
+          aria-controls="submenu-iead">
+          Sobre a IEAD
+        </button>
 
-      <nav class="nav" [ngClass]="{'open': menuAberto}">
-
-        <div class="dropdown" (click)="toggleSubMenu()">
-          <a href="#" class="dropdown-toggle" (click)="$event.preventDefault()">Sobre a IEAD</a>
-
-          <ul class="dropdown-menu" *ngIf="subMenuAberto">
-            <li><a [routerLink]="['/historia']">História</a></li>
-            <li><a [routerLink]="['/liderancas']">Lideranças</a></li>
-            <li><a [routerLink]="['/missao']">Missão e Valores</a></li>
-          </ul>
-        </div>
-
-        <a [routerLink]="['/agenda']">Programação</a>
-        <a [routerLink]="['/ministerios']">Ministérios</a>
-        <a [routerLink]="['contribuicao']">Contribua</a>
-        <a [routerLink]="['/contato']">Contato</a>
-      </nav>
+        <ul class="dropdown-menu" id="submenu-iead" *ngIf="subMenuAberto">
+          <li><a [routerLink]="['/historia']" (click)="aoClicarLink()">História</a></li>
+          <li><a [routerLink]="['/liderancas']" (click)="aoClicarLink()">Lideranças</a></li>
+          <li><a [routerLink]="['/missao']" (click)="aoClicarLink()">Missão e Valores</a></li>
+        </ul>
       </div>
 
-    </header>
+      <a [routerLink]="['/agenda']" (click)="aoClicarLink()">Programação</a>
+      <a [routerLink]="['/']" (click)="aoClicarLink()">Ministérios</a>
+      <a [routerLink]="['/contribuicao']" (click)="aoClicarLink()">Contribua</a>
+      <a [routerLink]="['/contato']" (click)="aoClicarLink()">Contato</a>
+    </nav>
+  </div>
+</header>

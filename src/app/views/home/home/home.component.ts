@@ -55,7 +55,11 @@ export class HomeComponent {
       titulo:'Guerreiros de Sião',
       subtitulo: 'Homens',
       culto: 'Toda última Sexta-Feira do Mês às 19h30',
-    },
+    },{
+      titulo:'Escola Bíblica Dominical',
+      subtitulo: 'Todos os Membros',
+      culto: 'Todo Domingo às 8h30',
+    }
   ];
 
   visibleCards = 4;
