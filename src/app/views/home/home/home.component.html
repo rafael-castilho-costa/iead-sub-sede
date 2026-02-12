@@ -136,11 +136,11 @@
       <button type="button" class="btn-retry" (click)="carregarAniversariantesSemana()">Tentar novamente</button>
     </div>
 
-    <div *ngIf="!loadingAniversariantes && !erroAniversariantes && aniversariantesSemana.length === 0" class="aniversariantes-status">
+    <div *ngIf="!loadingAniversariantes && aniversariantesCarregados && !erroAniversariantes && aniversariantesSemana.length === 0" class="aniversariantes-status">
       Nenhum aniversariante nesta semana (domingo a sábado).
     </div>
 
-    <div *ngIf="!loadingAniversariantes && !erroAniversariantes && aniversariantesSemana.length > 0" class="aniversariantes-grid">
+    <div *ngIf="!loadingAniversariantes && aniversariantesCarregados && !erroAniversariantes && aniversariantesSemana.length > 0" class="aniversariantes-grid">
       <article class="aniversariante-card" *ngFor="let item of aniversariantesSemana">
         <div class="aniversariante-avatar" [class.sem-foto]="!item.foto">
           <img *ngIf="item.foto" [src]="item.foto" [alt]="item.nome" loading="lazy" />

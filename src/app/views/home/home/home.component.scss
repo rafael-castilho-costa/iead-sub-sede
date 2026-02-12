@@ -402,6 +402,21 @@
     align-items: center;
     gap: 0.75rem;
     text-align: left;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: aniversarianteFadeIn 0.45s ease-out forwards;
+  }
+
+  .aniversariante-card:nth-child(1) { animation-delay: 0.04s; }
+  .aniversariante-card:nth-child(2) { animation-delay: 0.1s; }
+  .aniversariante-card:nth-child(3) { animation-delay: 0.16s; }
+  .aniversariante-card:nth-child(n + 4) { animation-delay: 0.22s; }
+
+  @keyframes aniversarianteFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .aniversariante-avatar {

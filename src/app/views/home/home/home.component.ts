@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   aniversariantesSemana: AniversarianteDaSemana[] = [];
   loadingAniversariantes = false;
+  aniversariantesCarregados = false;
   erroAniversariantes = '';
 
   ministerios: Ministerio[] = [
@@ -222,6 +223,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   carregarAniversariantesSemana(): void {
     this.loadingAniversariantes = true;
+    this.aniversariantesCarregados = false;
     this.erroAniversariantes = '';
 
     this.aniversariantesService
@@ -231,10 +233,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         next: (items) => {
           this.aniversariantesSemana = this.filtrarAniversariantesDaSemana(items);
           this.loadingAniversariantes = false;
+          this.aniversariantesCarregados = true;
         },
         error: (erro) => {
           console.error('Erro ao carregar aniversariantes:', erro);
           this.loadingAniversariantes = false;
+          this.aniversariantesCarregados = true;
           this.erroAniversariantes = 'Não foi possível carregar os aniversariantes agora.';
           this.aniversariantesSemana = [];
         }
