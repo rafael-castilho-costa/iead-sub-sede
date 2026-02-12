@@ -1,1 +1,35 @@
-<p>missao works!</p>
+<section class="missao-page">
+  <header class="missao-hero">
+    <span class="missao-kicker">Sobre a IEAD</span>
+    <h1>Missão e Valores</h1>
+    <p>
+      Nossa identidade está firmada em Cristo, na Palavra de Deus e no compromisso de servir pessoas
+      com amor, verdade e excelência.
+    </p>
+  </header>
+
+  <section class="pilares-grid" aria-label="Pilares da igreja">
+    <article class="pilar-card" *ngFor="let pilar of pilares">
+      <h2>{{ pilar.titulo }}</h2>
+      <p>{{ pilar.descricao }}</p>
+    </article>
+  </section>
+
+  <section class="base-biblica" aria-label="Base bíblica da igreja">
+    <h2>Base Bíblica</h2>
+    <p class="versiculo">
+      "Ide por todo o mundo, pregai o evangelho a toda criatura."
+    </p>
+    <strong>Marcos 16:15</strong>
+  </section>
+
+  <section class="principios" aria-label="Princípios da igreja">
+    <h2>Princípios que nos guiam</h2>
+    <div class="principios-grid">
+      <article class="principio-card" *ngFor="let item of principios">
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descricao }}</p>
+      </article>
+    </div>
+  </section>
+</section>

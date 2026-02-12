@@ -1,3 +1,16 @@
-<section class="container-historia">
+<section class="historia-page">
+  <header class="historia-hero">
+    <span class="status-tag" aria-label="Página em construção">Em construção</span>
+    <h1>História da IEAD</h1>
+    <p>
+      Esta página está sendo preparada. Em breve você poderá conhecer em detalhes a trajetória da nossa igreja.
+    </p>
+  </header>
 
+  <section class="historia-blocos" aria-label="Seções da história">
+    <article class="historia-card" *ngFor="let bloco of blocos">
+      <h2>{{ bloco.titulo }}</h2>
+      <p>{{ bloco.placeholder }}</p>
+    </article>
+  </section>
 </section>

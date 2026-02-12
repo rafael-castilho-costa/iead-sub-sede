@@ -1,5 +1,6 @@
 ﻿// Estilos para section de banner de crescimento
 .banner-crescimento {
+  position: relative;
   padding: 10rem 0 5rem;
   background-image: url('/assets/tema2026.svg');
   background-size: cover;
@@ -10,68 +11,134 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(112deg, rgba(11, 42, 75, 0.72) 0%, rgba(18, 64, 106, 0.52) 42%, rgba(29, 95, 156, 0.28) 100%),
+      radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.16), transparent 58%);
+    pointer-events: none;
+  }
 }
 .pastores-section {
-  padding: 3rem 1rem;
+  padding: 3.5rem 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8fd 100%);
+
+  .pastores-content {
+    max-width: 1120px;
+    margin: 0 auto;
+    border: 1px solid #d6e5f4;
+    border-radius: 24px;
+    background: linear-gradient(170deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 14px 30px rgba(18, 53, 85, 0.1);
+    padding: 2.1rem;
+  }
+
+  .pastores-heading {
+    text-align: center;
+    margin-bottom: 1.7rem;
+  }
+
+  .pastores-kicker {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #c8dbef;
+    border-radius: 999px;
+    padding: 0.26rem 0.78rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2d699d;
+    background: #eef6ff;
+    margin-bottom: 0.85rem;
+  }
 
   h1 {
     font-family: 'Anton', sans-serif;
     font-weight: 900;
     font-size: 3rem;
     text-align: center;
-    margin-bottom: 2.5rem;
-    color: #2E6EA6;
+    margin: 0;
+    color: #2e6ea6;
   }
 
   .pastores-layout {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr);
     align-items: center;
-    justify-content: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 2rem;
+    gap: 1.8rem;
   }
 
-  .pastores-quote{
-    text-align: center;
-    font-style: italic;
-    margin: 2rem 0;
-    font-family: 'Poppins', sans-serif;
-    color: #A63333;
+  .pastores-imagem {
+    border-radius: 18px;
+    padding: 0.8rem;
+    background: linear-gradient(170deg, #ffffff 0%, #edf5ff 100%);
+    border: 1px solid #d7e7f6;
+    box-shadow: 0 10px 22px rgba(20, 54, 86, 0.12);
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
   }
 
   .pastores-texto {
-    flex: 1 1 300px;
     text-align: left;
 
     h3 {
-      font-size: 1.7rem;
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      color: #A63333;
+      margin: 0 0 0.8rem;
+      font-size: 1.55rem;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: #1f5d91;
+      line-height: 1.25;
     }
 
     p {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      font-size: 1.3rem;
-      line-height: 1.6;
-      text-align:center ;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: #334f6b;
     }
   }
 
+  .pastores-quote {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid #2e6ea6;
+    border-radius: 12px;
+    background: #eef5fc;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-style: italic;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      color: #2a5d8a;
+      line-height: 1.55;
+    }
+  }
 }
 
 
 
 .banner-content {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  color: #CCC3A0;
-  text-shadow: 1px 1px 8px #222;
+  color: #f4e9c0;
+  text-shadow: 0 10px 24px rgba(2, 15, 28, 0.62);
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -95,12 +162,13 @@
     font-family: 'Sora', sans-serif;
     font-weight: 400;
     margin: 25 0 0 0;
-    color: #EAEAEA;
+    color: #f2f6fa;
     strong {
       font-size: 1.5rem;
       font-weight: 700;
       display: block;
       margin-top: 0.5rem;
+      color: #ffffff;
     }
   }
 }
@@ -170,12 +238,22 @@
     display: block;
   }
 
+  .agenda-grid {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.9rem;
+    max-width: 1060px;
+  }
+
   .agenda-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.55rem;
-    text-align: left;
+    text-align: center;
     border-radius: 16px;
     border: 1px solid #d7e5f3;
     background: #ffffff;
@@ -667,138 +745,194 @@
 // Estilos para section de contribuição
 
 .banner-contribua {
-  padding: 5rem 0 5rem;
+  position: relative;
+  padding: 5.5rem 1rem;
   background-image: url('/assets/contribua.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  min-height: 300px;
+  min-height: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(110deg, rgba(17, 54, 92, 0.74) 0%, rgba(22, 71, 117, 0.58) 42%, rgba(30, 98, 160, 0.32) 100%),
+      radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.14), transparent 54%);
+    pointer-events: none;
+  }
 
   .banner-content-contribua {
-    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 20px;
-    color: white;
-    text-shadow: 1px 1px 8px #222;
-    display: flex;
-    gap: 2rem;
-    align-self: center;
+    padding: 0 1rem;
+    color: #ffffff;
+    display: grid;
+    gap: 1.4rem 2.2rem;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+    align-items: center;
 
+    .contribua-text {
+      max-width: 700px;
+      text-align: left;
 
-    .contribua-card {
-      background: rgba(255, 255, 255, 0.42);
-      border-radius: 18px;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      min-width: 220px;
-      max-width: 270px;
-      flex: 1 1 220px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-
-      .contribua-image {
-        display: flex;
-        align-self: flex-start;
-        padding: 0 0.1rem;
-        margin-bottom: 1rem;
-
+      .contribua-kicker {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 0.3rem 0.85rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #edf6ff;
+        margin-bottom: 0.9rem;
+        background: rgba(255, 255, 255, 0.12);
       }
+
       h2 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin: 0 0 0.5rem 0;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Anton', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        line-height: 1.12;
+        margin: 0 0 0.9rem;
+        color: #ffffff;
+        text-shadow: 0 8px 22px rgba(2, 15, 28, 0.48);
       }
 
       p {
-        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
         font-size: 1rem;
-        font-weight: 400;
-        color: white;
+        line-height: 1.58;
+        color: #e8f2fb;
       }
 
-      .button-contribua {
-        border-radius: 1.5rem;
-        padding: 0.7rem 2.2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-top: auto;
-        align-self: center;
+      strong {
+        display: inline-block;
+        margin: 0.6rem 0 1rem;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+        color: #ffffff;
+      }
+
+      .contribua-support-text {
+        color: #d2e6f8;
+        font-size: 0.95rem;
+        max-width: 520px;
       }
     }
 
-    .contribua-text {
-      align-self: center;
-      h2 {
-        font-family:'Anton', sans-serif;
-        text-transform: uppercase;
-        font-size: 2rem;
-        font-weight: 900;
-        margin-bottom: 1rem;
-        color: white;
+    .contribua-card-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .contribua-card {
+      width: min(330px, 100%);
+      border-radius: 20px;
+      padding: 1.4rem 1.2rem 1.2rem;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.94) 0%, rgba(244, 250, 255, 0.88) 100%);
+      border: 1px solid rgba(194, 220, 244, 0.72);
+      box-shadow: 0 18px 34px rgba(7, 27, 46, 0.26);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+      text-align: left;
+
+      .contribua-image {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0.2rem;
       }
+
+      h3 {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #184a76;
+      }
+
       p {
+        margin: 0;
         font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-        color: #EAEAEA;
-        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #325b82;
+      }
+
+      .button-contribua {
+        border-radius: 999px;
+        padding: 0.68rem 1.35rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-top: 0.3rem;
       }
     }
   }
 }
 
 @media (max-width:600px){
-  .banner-crescimento .banner-content h2 {font-size: 5rem;}
-  .banner-crescimento .banner-content h1 {font-size: 2rem;}
-  .banner-crescimento .banner-content p {font-size: 1.5rem;}
-  .banner-crescimento .banner-content strong {font-size: 1.1rem;}
-  .banner-crescimento {padding: 2rem 0.5rem; min-height: 280px; margin-top: 60px;}
+  .banner-crescimento .banner-content h2 {font-size: 3rem;}
+  .banner-crescimento .banner-content h1 {font-size: 1.55rem;}
+  .banner-crescimento .banner-content p {font-size: 1rem; line-height: 1.45;}
+  .banner-crescimento .banner-content strong {font-size: 0.95rem;}
+  .banner-crescimento {padding: 2.1rem 0.75rem; min-height: 260px; margin-top: 60px;}
 }
 
 
 @media screen and (max-width: 800px) {
 
     .pastores-section {
-      padding: 1rem 1rem;
+      padding: 2rem 1rem;
 
       h1 {
-        font-size: 2.4rem;
+        font-size: 2rem;
       }
 
       .pastores-layout {
-       flex-direction: column;
-       align-items: center;
+       grid-template-columns: 1fr;
+       gap: 1.15rem;
 
        .pastores-texto {
           text-align: center;
-          min-width: 100%;
 
           h3 {
-          font-size: 1.3rem;
+          font-size: 1.2rem;
           }
 
           p {
-            font-size: 1rem;
+            font-size: 0.98rem;
+            line-height: 1.55;
           }
         }
+      }
 
-
-
+      .pastores-quote p {
+        font-size: 0.96rem;
+        line-height: 1.5;
       }
     }
 
-    .pastores-imagem img {
-      max-width: 100%;
-      height: auto;
+    .pastores-section .pastores-content {
+      padding: 1.35rem 1rem;
     }
 
     .reforma-section h1 {
-      font-size: 2rem;
+      font-size: 1.95rem;
     }
 
 
@@ -825,37 +959,60 @@
       }
 
       .ministerios-header h1 {
-        font-size: 2.5rem;
+        font-size: 2.1rem;
       }
 
       .ministerios-header p {
-        font-size: 1rem;
-      }
-    }
-    .banner-content-contribua {
-      flex-direction: column;
-      gap: 2rem;
-
-      .contribua-text{
-        h2 {
-          font-size: 1.5rem;
-        }
-        p {
-          font-size: 0.8rem;
-        }
-      }
-      .contribua-card {
-        align-self: center;
+        font-size: 0.95rem;
       }
     }
     .banner-contribua {
-      padding: 3rem 0.5rem;
-      min-height: 280px;
+      padding: 3.2rem 0.5rem;
+      min-height: 300px;
+    }
+
+    .banner-contribua .banner-content-contribua {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      text-align: center;
+      justify-items: center;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-text {
+      text-align: center;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-text h2 {
+      font-size: 1.45rem;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-text p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-text .contribua-support-text {
+      margin: 0 auto;
+      font-size: 0.88rem;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-card-wrap {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-card {
+      width: min(320px, 100%);
     }
 
     .programacao .agenda-carousel {
       grid-template-columns: auto 1fr auto;
       gap: 0.45rem;
+      max-width: 360px;
+    }
+
+    .programacao .agenda-grid {
+      grid-template-columns: 1fr;
       max-width: 360px;
     }
 
@@ -865,8 +1022,104 @@
       font-size: 1rem;
     }
 
-    .aniversariantes h2 {
+    .programacao h2 {
       font-size: 2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .programacao .agenda-card {
+      min-height: 112px;
+      padding: 0.85rem;
+    }
+
+    .programacao .agenda-dia {
+      font-size: 0.96rem;
+    }
+
+    .programacao .agenda-hora {
+      font-size: 0.84rem;
+      min-width: 58px;
+      padding: 0.15rem 0.58rem;
+    }
+
+    .programacao .agenda-evento {
+      font-size: 0.94rem;
+      line-height: 1.35;
+    }
+
+    .programacao .programacao-content p {
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+
+    .aniversariantes h2 {
+      font-size: 1.9rem;
+    }
+
+    .aniversariantes .aniversariantes-subtitle {
+      font-size: 0.92rem;
+    }
+
+    .aniversariantes .aniversariante-info h3 {
+      font-size: 0.95rem;
+    }
+
+    .aniversariantes .aniversariante-info .data,
+    .aniversariantes .aniversariante-info .dias {
+      font-size: 0.74rem;
+    }
+
+    .reforma-section .reforma-conteudo {
+      padding: 1.2rem 0.8rem;
+      gap: 1.2rem;
+    }
+
+    .reforma-section .reforma-conteudo .reforma-description p {
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+  }
+
+@media (max-width: 480px) {
+    .banner-crescimento .banner-content h2 {
+      font-size: 2.5rem;
+    }
+
+    .banner-crescimento .banner-content h1 {
+      font-size: 1.35rem;
+    }
+
+    .programacao h2,
+    .pastores-section h1,
+    .aniversariantes h2,
+    .reforma-section h1,
+    .ministerios .ministerios-header h1 {
+      font-size: 1.7rem;
+    }
+
+    .programacao .agenda-carousel {
+      max-width: 330px;
+    }
+
+    .programacao .btn.btn-primary {
+      font-size: 0.92rem;
+      padding: 0.7rem 1.7rem;
+    }
+
+    .aniversariantes .aniversariantes-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-text h2 {
+      font-size: 1.3rem;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-card {
+      padding: 1.1rem 1rem 1rem;
+    }
+
+    .banner-contribua .banner-content-contribua .contribua-card h3 {
+      font-size: 1.15rem;
     }
   }
 

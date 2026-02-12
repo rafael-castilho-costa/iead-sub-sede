@@ -10,22 +10,29 @@
 </section>
 
 <section class="pastores-section" id="pastores">
-  <h1>Pastores Locais</h1>
+  <div class="pastores-content">
+    <div class="pastores-heading">
+      <span class="pastores-kicker">Liderança Pastoral</span>
+      <h1>Pastores Locais</h1>
+    </div>
 
-  <div class="pastores-layout">
-    <div class="pastores-texto">
-      <h3>Pr. Sebastião Santos & Pra. Edinair Rocha</h3>
-      <p>O casal pastoral lidera com dedicação a Igreja Sub-sede Setor 3 desde 2023.
-        O Pastor Sebastião, com mais de 30 anos de ministério, e a Pastora Edinair têm sido instrumentos de Deus
-        na promoção de melhorias, fortalecimento da comunhão e no cuidado com cada irmão da congregação.
-        Seu trabalho tem marcado uma nova fase de crescimento espiritual e união na igreja local.</p>
+    <div class="pastores-layout">
+      <div class="pastores-imagem">
+        <img src="assets/pastores-photo.svg" alt="Pr. Sebastião Santos e Pra. Edinair" />
+      </div>
+
+      <div class="pastores-texto">
+        <h3>Pr. Sebastião Santos & Pra. Edinair Rocha</h3>
+        <p>O casal pastoral lidera com dedicação a Igreja Sub-sede Setor 3 desde 2023.
+          O Pastor Sebastião, com mais de 30 anos de ministério, e a Pastora Edinair têm sido instrumentos de Deus
+          na promoção de melhorias, fortalecimento da comunhão e no cuidado com cada irmão da congregação.
+          Seu trabalho tem marcado uma nova fase de crescimento espiritual e união na igreja local.</p>
+      </div>
     </div>
-    <div class="pastores-imagem">
-      <img src="assets/pastores-photo.svg" alt="Pr. Sebastião Santos e Pra. Edinair" />
+
+    <div class="pastores-quote" role="note" aria-label="Mensagem pastoral">
+      <p>"A nossa missão é cuidar, ensinar e guiar cada membro da nossa igreja no caminho do Senhor."</p>
     </div>
-  </div>
-  <div class="pastores-quote">
-    <p>"A nossa missão é cuidar, ensinar e guiar cada membro da nossa igreja no caminho do Senhor."</p>
   </div>
 </section>
 
@@ -59,7 +66,7 @@
     <h2>Agenda Semanal</h2>
 
     <div class="agenda-semanal">
-      <div class="agenda-carousel">
+      <div *ngIf="isAgendaMobile; else agendaDesktop" class="agenda-carousel">
         <button
           class="agenda-arrow left"
           type="button"
@@ -85,7 +92,17 @@
         </button>
       </div>
 
-      <div class="agenda-indicators">
+      <ng-template #agendaDesktop>
+        <ul class="agenda-grid">
+          <li class="agenda-card" *ngFor="let item of agendaSemanal">
+            <span class="agenda-dia">{{ item.dia }}</span>
+            <span class="agenda-hora">{{ item.hora }}</span>
+            <span class="agenda-evento">{{ item.evento }}</span>
+          </li>
+        </ul>
+      </ng-template>
+
+      <div *ngIf="isAgendaMobile" class="agenda-indicators">
         <span
           *ngFor="let item of agendaSemanal; let i = index"
           [class.active]="i === agendaIndex"
@@ -178,19 +195,21 @@
 
 <section class="banner-contribua" id="contribua">
   <div class="banner-content-contribua">
-
     <div class="contribua-text">
-       <h2>FAÇA SUA CONTRIBUIÇÃO COM ALEGRIA</h2>
-      <p>"Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha casa"<br>
-        <strong>Malaquias 3:10</strong>
-      </p>
+      <span class="contribua-kicker">Contribuição</span>
+      <h2>Faça sua contribuição com alegria</h2>
+      <p>"Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha casa."</p>
+      <strong>Malaquias 3:10</strong>
+      <p class="contribua-support-text">Sua oferta nos ajuda a manter projetos, ações sociais e o cuidado com a igreja.</p>
     </div>
 
-    <div class="contribua-card">
-      <img src="/assets/coracao-contribua.svg" alt="Contribua" class="contribua-image" />
-      <h2>Doações e Ofertas</h2>
-      <br><p>Contribua com a obra do Senhor.</p>
-      <button class="button-contribua btn-grad" [routerLink]="['/contribuicao']">Contribuir</button>
+    <div class="contribua-card-wrap">
+      <div class="contribua-card">
+        <img src="/assets/coracao-contribua.svg" alt="Contribua" class="contribua-image" />
+        <h3>Doações e ofertas</h3>
+        <p>Contribua com a obra do Senhor de forma simples e segura.</p>
+        <button class="button-contribua btn-grad" [routerLink]="['/contribuicao']">Contribuir</button>
+      </div>
     </div>
   </div>
 </section>

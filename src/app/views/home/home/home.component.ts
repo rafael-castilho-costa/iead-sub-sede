@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   slideAtual = 0;
   intervalId: ReturnType<typeof setInterval> | null = null;
   agendaIndex = 0;
+  isAgendaMobile = false;
 
   aniversariantesSemana: AniversarianteDaSemana[] = [];
   loadingAniversariantes = false;
@@ -150,6 +151,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   updateVisibleCards(): void {
     const width = window.innerWidth;
+    this.isAgendaMobile = width < 900;
+
     if (width < 900) {
       this.visibleCards = 1;
     } else if (width < 1200) {
