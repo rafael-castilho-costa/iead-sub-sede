@@ -43,22 +43,41 @@
     <p>Conheça nossos ministérios:</p>
   </div>
   <div class="ministerios-carousel">
-    <button class="carousel-arrow left" (click)="prev()" [disabled]="startIndex === 0" aria-label="Ver ministérios anteriores">&#10094;</button>
-    <div class="ministerios-cards">
-      <div class="ministerio-card" *ngFor="let m of visibleMinisterios">
+      <button
+        class="ministerios-arrow left"
+        type="button"
+        (click)="prev()"
+        aria-label="Ministério anterior">
+        &#10094;
+      </button>
+
+      <ul class="ministerios-cards">
+        <li class="ministerio-card" *ngFor="let m of visibleMinisterios">
         <h2>{{ m.titulo }}</h2>
         <h3 class="ministerio-subtitulo">{{ m.subtitulo }}</h3>
         <div class="culto-info">
           <span class="culto-label">Culto</span>
           <span class="culto-horario">{{m.culto}}</span>
         </div>
-        <!-- botão desativado temporariamente
-        <button class="btn-acessar">Acessar</button>
-        -->
-      </div>
-    </div>
-    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length" aria-label="Ver próximos ministérios">&#10095;</button>
+        </li>
+      </ul>
+
+      <button
+        class="ministerios-arrow right"
+        type="button"
+        (click)="next()"
+        aria-label="Próximo ministério">
+        &#10095;
+      </button>
   </div>
+
+    <div *ngIf="isMinisteriosMobile" class="ministerios-indicators">
+      <span
+        *ngFor="let item of ministerios; let i = index"
+        [class.active]="i === startIndex"
+        (click)="goToMinisterioCard(i)">
+      </span>
+    </div>
 </section>
 
 <section class="programacao" id="programacao">

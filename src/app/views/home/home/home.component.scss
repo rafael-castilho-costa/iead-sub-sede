@@ -1,4 +1,9 @@
-ï»¿// Estilos para section de banner de crescimento
+:host {
+  display: block;
+  width: 100%;
+}
+
+// Estilos para section de banner de crescimento
 .banner-crescimento {
   position: relative;
   padding: 10rem 0 5rem;
@@ -535,124 +540,129 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     max-width: 1240px;
     margin: 0 auto;
-
-    .carousel-arrow {
-      background: linear-gradient(180deg, #f7fbff 0%, #d6ebff 100%);
-      border: 0;
-      color: #fff;
-      width: 44px;
-      height: 76px;
-      border-radius: 999px;
-      color: #1f5d91;
-      font-size: 1.45rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(9, 42, 73, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
-      margin: 0;
-      line-height: 1;
-
-      &:hover {
-        background: linear-gradient(180deg, #ffffff 0%, #e9f4ff 100%);
-        transform: scale(1.04);
-        box-shadow: 0 10px 28px rgba(9, 42, 73, 0.36);
-      }
-
-      &:disabled {
-        opacity: 0.38;
-        box-shadow: none;
-        cursor: not-allowed;
-        transform: none;
-      }
-    }
-
-    .ministerios-cards {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-      width: 100%;
-    }
-
-    .ministerio-card {
-      background: linear-gradient(170deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      border-top: 4px solid #9fd1ff;
-      border-radius: 18px;
-      padding: 1.35rem 1.1rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: space-between;
-      box-shadow: 0 12px 28px rgba(10, 29, 47, 0.22);
-      backdrop-filter: blur(3px);
-      min-height: 220px;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 32px rgba(10, 29, 47, 0.28);
-      }
-
-      h2 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin: 0 0 0.4rem;
-        font-family: 'Sora', sans-serif;
-        line-height: 1.25;
-        color: #ffffff;
-      }
-
-      .ministerio-subtitulo {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin: 0 0 0.85rem;
-        color: #d4e9ff;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-
-      .culto-info {
-        background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        border-radius: 12px;
-        padding: 0.75rem;
-        text-align: left;
-      }
-
-      .culto-label {
-        display: inline-block;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #bfe0ff;
-        margin-bottom: 0.35rem;
-      }
-
-      .culto-horario {
-        display: block;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #ffffff;
-        line-height: 1.45;
-      }
-    }
-
   }
-}
 
-@media (min-width: 901px) and (max-width: 1199px) {
-  .ministerios .ministerios-carousel .ministerios-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .ministerios-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .ministerio-card {
+    background: linear-gradient(170deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-top: 4px solid #9fd1ff;
+    border-radius: 18px;
+    padding: 1.35rem 1.1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    box-shadow: 0 12px 28px rgba(10, 29, 47, 0.22);
+    backdrop-filter: blur(3px);
+    min-height: 220px;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 32px rgba(10, 29, 47, 0.28);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem;
+      font-family: 'Sora', sans-serif;
+      line-height: 1.25;
+      color: #ffffff;
+    }
+
+    .ministerio-subtitulo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 0.85rem;
+      color: #d4e9ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .culto-info {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 12px;
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .culto-label {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #bfe0ff;
+      margin-bottom: 0.35rem;
+    }
+
+    .culto-horario {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.45;
+    }
+  }
+
+  .ministerios-arrow {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #c8dcef;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #2a628f;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(9, 42, 73, 0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 12px rgba(9, 42, 73, 0.16);
+    }
+  }
+
+  .ministerios-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .ministerios-indicators span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #bfd8f0;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .ministerios-indicators span.active {
+    background-color: #ffffff;
+    transform: scale(1.1);
   }
 }
 
@@ -757,7 +767,7 @@
   }
 }
 
-// Estilos para section de contribuiÃ§Ã£o
+// Estilos para section de contribuição
 
 .banner-contribua {
   position: relative;
@@ -956,29 +966,25 @@
 
 @media (max-width: 900px) {
     .ministerios {
-      .ministerios-carousel {
-        grid-template-columns: auto 1fr auto;
-        gap: 0.6rem;
-
-        .carousel-arrow {
-          width: 38px;
-          height: 62px;
-          font-size: 1.25rem;
-        }
-
-        .ministerios-cards {
-          grid-template-columns: 1fr;
-          max-width: min(420px, 100%);
-          margin: 0 auto;
-        }
-      }
-
       .ministerios-header h1 {
         font-size: 2.1rem;
       }
 
       .ministerios-header p {
         font-size: 0.95rem;
+      }
+
+      .ministerios-carousel {
+        gap: 0.45rem;
+        max-width: 360px;
+      }
+
+      .ministerios-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .ministerio-card {
+        min-height: 200px;
       }
     }
     .banner-contribua {
@@ -1137,6 +1143,7 @@
       font-size: 1.15rem;
     }
   }
+
 
 
 

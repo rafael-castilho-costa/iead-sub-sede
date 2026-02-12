@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   intervalId: ReturnType<typeof setInterval> | null = null;
   agendaIndex = 0;
   isAgendaMobile = false;
+  isMinisteriosMobile = false;
 
   aniversariantesSemana: AniversarianteDaSemana[] = [];
   loadingAniversariantes = false;
@@ -107,7 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ];
 
-  visibleCards = 4;
+  visibleCards = 3;
   startIndex = 0;
 
   imagens: string[] = [
@@ -153,34 +154,44 @@ export class HomeComponent implements OnInit, OnDestroy {
   updateVisibleCards(): void {
     const width = window.innerWidth;
     this.isAgendaMobile = width < 900;
-
-    if (width < 900) {
-      this.visibleCards = 1;
-    } else if (width < 1200) {
-      this.visibleCards = 2;
-    } else {
-      this.visibleCards = 4;
-    }
-
-    if (this.startIndex + this.visibleCards > this.ministerios.length) {
-      this.startIndex = Math.max(0, this.ministerios.length - this.visibleCards);
-    }
+    this.isMinisteriosMobile = width < 900;
+    this.visibleCards = this.isMinisteriosMobile ? 1 : 3;
   }
 
   get visibleMinisterios(): Ministerio[] {
-    return this.ministerios.slice(this.startIndex, this.startIndex + this.visibleCards);
+    if (!this.ministerios.length) {
+      return [];
+    }
+
+    const quantidade = Math.min(this.visibleCards, this.ministerios.length);
+    return Array.from(
+      { length: quantidade },
+      (_, index) => this.ministerios[(this.startIndex + index) % this.ministerios.length]
+    );
   }
 
   prev(): void {
-    if (this.startIndex > 0) {
-      this.startIndex--;
+    if (!this.ministerios.length) {
+      return;
     }
+
+    this.startIndex = (this.startIndex - 1 + this.ministerios.length) % this.ministerios.length;
   }
 
   next(): void {
-    if (this.startIndex + this.visibleCards < this.ministerios.length) {
-      this.startIndex++;
+    if (!this.ministerios.length) {
+      return;
     }
+
+    this.startIndex = (this.startIndex + 1) % this.ministerios.length;
+  }
+
+  goToMinisterioCard(index: number): void {
+    if (!this.ministerios.length) {
+      return;
+    }
+
+    this.startIndex = index;
   }
 
   iniciarAutoSlide(): void {
