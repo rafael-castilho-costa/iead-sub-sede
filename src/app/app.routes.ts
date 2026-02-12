@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -8,39 +8,38 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./views/home/home.module').then((m) => m.HomeModule)
   },
   {
-    path:'agenda',
-    loadChildren: () => import('./views/agenda/agenda.module').then(m => m.AgendaModule)
+    path: 'agenda',
+    loadChildren: () => import('./views/agenda/agenda.module').then((m) => m.AgendaModule)
   },
   {
     path: 'contato',
-    loadChildren: () => import('./views/contato/contato.module').then(m => m.ContatoModule)
+    loadChildren: () => import('./views/contato/contato.module').then((m) => m.ContatoModule)
   },
   {
     path: 'contribuicao',
-    loadChildren: () => import('./views/contribuicao/contribuicao.module').then(m => m.ContribuicaoModule)
+    loadChildren: () => import('./views/contribuicao/contribuicao.module').then((m) => m.ContribuicaoModule)
   },
   {
     path: 'ministerios',
-    loadChildren: () => import('./views/ministerios/ministerios.module').then(m => m.MinisteriosModule)
+    loadChildren: () => import('./views/ministerios/ministerios.module').then((m) => m.MinisteriosModule)
   },
   {
     path: 'liderancas',
-    loadChildren: () => import('./views/lideranças/liderancas.module').then(m => m.LiderancasModule)
+    loadChildren: () => import('./views/liderancas/liderancas.module').then((m) => m.LiderancasModule)
   },
   {
     path: 'historia',
-    loadChildren: () => import('./views/historia/historia.module').then(m => m.HistoriaModule)
+    loadChildren: () => import('./views/historia/historia.module').then((m) => m.HistoriaModule)
   },
   {
     path: 'missao',
-    loadChildren: () => import('./views/missao/missao.module').then(m => m.MissaoModule)
+    loadChildren: () => import('./views/missao/missao.module').then((m) => m.MissaoModule)
   },
   {
     path: 'reforma',
     loadComponent: () => import('./views/reforma/reforma.component').then((m) => m.ReformaComponent)
   }
 ];
-

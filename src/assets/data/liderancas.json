@@ -1,0 +1,23 @@
+﻿[
+  {
+    "nome": "Pr. Sebastião Santos",
+    "titulo": "Pastor Presidente da Sub-Sede",
+    "foto": "assets/photo-pr-sebastião.svg",
+    "resumo": "Lidera a sub-sede desde 2023, com trajetória ministerial sólida e atuação no Ministério Missão de Goiás.",
+    "biografia": "Sebastião dos Santos Oliveira serve como pastor na Igreja Evangélica Assembleia de Deus Ministério Missão - Sub-sede Senador Canedo desde 2023. Teve um encontro pessoal com Jesus em setembro de 1985 e, no mesmo período, ingressou no CETADEB, onde recebeu formação ministerial e teológica. Assumiu seu primeiro pastorado na Sede de Santa Vitória, Minas Gerais. É casado com Edinair Rosa de Jesus Oliveira desde 25 de junho de 1988 e é pai de duas filhas: Ninfa Naiane e Karla Graziela. Também é avô de três netas: Eloisa Helena, Antonella Emanuela e Olívia Eleonora. Atualmente, além de pastorear, exerce os cargos de 2º vice-presidente do Ministério Missão de Goiás, coordenador do Setor 3 e relator da comissão de triagem da COMADEBG."
+  },
+  {
+    "nome": "Ev. Abimael Santos",
+    "titulo": "Liderança Pastoral",
+    "foto": "assets/photo-pr-abimael.svg",
+    "resumo": "Atuação pastoral e apoio direto ao cuidado da igreja local.",
+    "emAtualizacao": true
+  },
+  {
+    "nome": "Ev. Ezequiel Teixeira",
+    "titulo": "Liderança Pastoral",
+    "foto": "assets/pastores-photo.svg",
+    "resumo": "Contribui no pastoreio e no fortalecimento ministerial da comunidade.",
+    "emAtualizacao": true
+  }
+]

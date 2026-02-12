@@ -1,6 +1,29 @@
-import { CommonModule, DatePipe } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+interface GoogleCalendarDate {
+  date?: string;
+  dateTime?: string;
+}
+
+interface GoogleCalendarEvent {
+  id: string;
+  summary?: string;
+  description?: string;
+  location?: string;
+  htmlLink?: string;
+  status?: string;
+  start?: GoogleCalendarDate;
+  end?: GoogleCalendarDate;
+}
+
+interface GoogleCalendarEventsResponse {
+  items?: GoogleCalendarEvent[];
+  error?: {
+    message?: string;
+  };
+}
 
 @Component({
   selector: 'app-agenda',
@@ -9,138 +32,200 @@ import { RouterModule } from '@angular/router';
   templateUrl: './agenda.component.html',
   styleUrl: './agenda.component.scss'
 })
-
 export class AgendaComponent implements OnInit {
-  eventos: any[] = [];
-  calendarId = '9d2fa71088dd0d42b7ae86340904dbc4415abaa0156c9978716f0862624cb800@group.calendar.google.com';
-  apiKey = 'AIzaSyBMODYR22u6NiHsHoVkdRf8gu6u8otzusY';
-
-  dataAtual: Date = new Date();
+  eventos: GoogleCalendarEvent[] = [];
+  isLoading = false;
+  errorMessage = '';
+  dataAtual = new Date();
   eventosExpandidos = new Set<number>();
 
+  private readonly calendarId = '9d2fa71088dd0d42b7ae86340904dbc4415abaa0156c9978716f0862624cb800@group.calendar.google.com';
+  private readonly apiKey = 'AIzaSyBMODYR22u6NiHsHoVkdRf8gu6u8otzusY';
+  private readonly timezone = 'America/Sao_Paulo';
+  private requestVersion = 0;
+
+  ngOnInit(): void {
+    void this.buscarCalendario();
+  }
+
   toggleDescricao(index: number): void {
-    if (this.eventosExpandidos.has(index)) {
-      this.eventosExpandidos.delete(index);
-    } else {
-      this.eventosExpandidos.add(index);
-    }
+    this.eventosExpandidos.has(index)
+      ? this.eventosExpandidos.delete(index)
+      : this.eventosExpandidos.add(index);
   }
 
   isDescricaoExpandida(index: number): boolean {
     return this.eventosExpandidos.has(index);
   }
 
-  ngOnInit() {
-    this.buscarCalendario();
+  trackByEvento(_: number, evento: GoogleCalendarEvent): string {
+    return evento.id;
   }
 
-  getMonthRange(date: Date) {
+  private getMonthRange(date: Date): { timeMin: string; timeMax: string } {
     const inicio = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
-    const fim = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
+    const fim = new Date(date.getFullYear(), date.getMonth() + 1, 1, 0, 0, 0, 0);
 
     return {
-      timeMin: inicio.toISOString(),
-      timeMax: fim.toISOString()
+      timeMin: this.toRfc3339Local(inicio),
+      timeMax: this.toRfc3339Local(fim)
     };
   }
 
-  buscarCalendario() {
+  async buscarCalendario(): Promise<void> {
+    const currentRequest = ++this.requestVersion;
     const { timeMin, timeMax } = this.getMonthRange(this.dataAtual);
 
-    fetch(`https://www.googleapis.com/calendar/v3/calendars/${this.calendarId}/events?key=${this.apiKey}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Eventos recebidos:', data.items);
-        this.eventos = this.filtrarEventosDoMes(data.items || [], this.dataAtual);
+    const queryParams = new URLSearchParams({
+      key: this.apiKey,
+      timeMin,
+      timeMax,
+      singleEvents: 'true',
+      orderBy: 'startTime',
+      showDeleted: 'false',
+      maxResults: '250',
+      timeZone: this.timezone,
+      fields: 'items(id,summary,description,location,htmlLink,status,start,end)'
+    });
 
-        this.eventos.forEach(evento => {
-          if (evento.attachments) {
-            evento.attachments.forEach((att: any) => {
-              console.log('fileUrl:', att.fileUrl);
-              console.log('fileId:', att.fileId );
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.eventosExpandidos.clear();
 
-          });
-        }
-      });
-    })
-    .catch(err => console.error('Erro ao buscar eventos:', err));
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(this.calendarId)}/events?${queryParams.toString()}`,
+        { headers: { Accept: 'application/json' } }
+      );
 
-  }
+      if (!response.ok) {
+        throw new Error(`Google Calendar API retornou HTTP ${response.status}`);
+      }
 
-  mesAnterior() {
-    this.dataAtual = new Date(this.dataAtual);
-    this.dataAtual.setDate(this.dataAtual.getDate() - 30);
-    this.buscarCalendario();
-  }
+      const data = await response.json() as GoogleCalendarEventsResponse;
 
-  proximoMes() {
-    this.dataAtual = new Date(this.dataAtual);
-    this.dataAtual.setDate(this.dataAtual.getDate() + 30);
-    this.buscarCalendario();
-  }
+      if (data.error) {
+        throw new Error(data.error.message || 'Erro ao carregar eventos do Google Agenda.');
+      }
 
-  /* Retorna a data formatada em pt-BR com hora */
-  getDataHoraFormatada(evento: any): string {
-    const rawDate = evento.start?.dateTime || evento.start?.date;
-    if (evento.start?.date){
-      return 'Dia Inteiro';
+      if (currentRequest !== this.requestVersion) {
+        return;
+      }
+
+      this.eventos = (data.items || [])
+        .filter((evento) => evento.status !== 'cancelled')
+        .filter((evento) => this.isEventInReferenceMonth(evento, this.dataAtual))
+        .sort((a, b) => this.getEventDate(a).getTime() - this.getEventDate(b).getTime());
+    } catch (error) {
+      if (currentRequest !== this.requestVersion) {
+        return;
+      }
+
+      this.eventos = [];
+      this.errorMessage = 'Não foi possível carregar a agenda agora. Tente novamente.';
+      console.error('Erro ao buscar eventos:', error);
+    } finally {
+      if (currentRequest === this.requestVersion) {
+        this.isLoading = false;
+      }
     }
-    const data = new Date(rawDate);
+  }
+
+  mesAnterior(): void {
+    this.dataAtual = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth() - 1, 1);
+    void this.buscarCalendario();
+  }
+
+  proximoMes(): void {
+    this.dataAtual = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth() + 1, 1);
+    void this.buscarCalendario();
+  }
+
+  irParaMesAtual(): void {
+    const hoje = new Date();
+    this.dataAtual = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    void this.buscarCalendario();
+  }
+
+  getDataHoraFormatada(evento: GoogleCalendarEvent): string {
+    if (evento.start?.date) {
+      return 'Dia inteiro';
+    }
+
+    const data = this.getEventDate(evento);
     return `${data.toLocaleDateString('pt-BR')} às ${data.toLocaleTimeString('pt-BR', {
       hour: '2-digit',
       minute: '2-digit'
     })}`;
   }
 
-  /** Retorna o dia do mês com 2 dígitos */
-  getDia(evento: any): string {
-    const rawDate = evento.start?.dateTime || evento.start?.date;
-    if (evento.start?.date){
-      return rawDate.split('-')[2];
-    }
-    return new Date(rawDate).getDate().toString().padStart(2, '0');
+  getDia(evento: GoogleCalendarEvent): string {
+    return this.getEventDate(evento).getDate().toString().padStart(2, '0');
   }
 
-  /** Retorna o mês abreviado (ex: Jan, Fev, Mar...) */
-  getMesAbreviado(evento: any): string {
-    const rawDate = evento.start?.dateTime || evento.start?.date;
-    const data = new Date(rawDate);
+  getMesAbreviado(evento: GoogleCalendarEvent): string {
+    const data = this.getEventDate(evento);
     const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-    let mes;
-
-    if (evento.start?.date){
-      mes = parseInt(rawDate.split('-')[1],10)-1;
-    } else {
-      mes = new Date(rawDate).getMonth();
-    }
-    return meses[mes];
+    return meses[data.getMonth()];
   }
 
-  /** Retorna o dia da semana abreviado (ex: Dom, Seg, Ter...) */
-  getDiaSemanaAbreviado(evento: any): string {
-    const rawDate = evento.start?.dateTime || evento.start?.date;
+  getDiaSemanaAbreviado(evento: GoogleCalendarEvent): string {
+    const data = this.getEventDate(evento);
     const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-    let data;
-    if (evento.start?.date) {
-      const [ano, mes, dia] = rawDate.split('-');
-      data = new Date(Number(ano), Number(mes) -1, Number(dia));
-    } else {
-      data = new Date(rawDate);
-    }
     return dias[data.getDay()];
   }
 
-  private filtrarEventosDoMes(eventos: any[], dataReferencia: Date): any [] {
-    const mes = dataReferencia.getMonth();
-    const ano = dataReferencia.getFullYear();
+  getDescricaoLimpa(descricao?: string): string {
+    if (!descricao) {
+      return 'Sem descrição.';
+    }
 
-    return eventos.filter(evento => {
-      const rawDate = evento.start?.dateTime || evento.start?.date;
-      const dataEvento = new Date(rawDate);
-      console.log('Evento:', dataEvento, 'Mês:', dataEvento.getMonth(), 'Ano:', dataEvento.getFullYear(), 'Referência:', mes, ano);
-      return (dataEvento.getMonth() === mes &&
-             dataEvento.getFullYear() === ano
-      );
-    });
+    return descricao
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private getEventDate(evento: GoogleCalendarEvent): Date {
+    const dateTime = evento.start?.dateTime;
+    if (dateTime) {
+      return new Date(dateTime);
+    }
+
+    const date = evento.start?.date;
+    if (date) {
+      const [ano, mes, dia] = date.split('-').map(Number);
+      return new Date(ano, mes - 1, dia);
+    }
+
+    return new Date();
+  }
+
+  private isEventInReferenceMonth(evento: GoogleCalendarEvent, referencia: Date): boolean {
+    const refMes = referencia.getMonth() + 1;
+    const refAno = referencia.getFullYear();
+
+    if (evento.start?.date) {
+      const [anoStr, mesStr] = evento.start.date.split('-');
+      return Number(anoStr) === refAno && Number(mesStr) === refMes;
+    }
+
+    const data = this.getEventDate(evento);
+    return data.getFullYear() === refAno && data.getMonth() + 1 === refMes;
+  }
+
+  private toRfc3339Local(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+    const hora = String(data.getHours()).padStart(2, '0');
+    const minuto = String(data.getMinutes()).padStart(2, '0');
+    const segundo = String(data.getSeconds()).padStart(2, '0');
+    const offsetMinutos = -data.getTimezoneOffset();
+    const sinal = offsetMinutos >= 0 ? '+' : '-';
+    const absOffset = Math.abs(offsetMinutos);
+    const offsetHora = String(Math.floor(absOffset / 60)).padStart(2, '0');
+    const offsetMin = String(absOffset % 60).padStart(2, '0');
+    return `${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}${sinal}${offsetHora}:${offsetMin}`;
   }
 }

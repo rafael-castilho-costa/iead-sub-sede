@@ -181,6 +181,27 @@
       margin-bottom: 0.6rem;
     }
 
+    .footer-section-igreja {
+      text-align: center;
+
+      ul {
+        justify-items: center;
+      }
+
+      a {
+        display: inline-block;
+        padding: 0.08rem 0;
+      }
+    }
+
+    .footer-section-social {
+      text-align: center;
+
+      .social-list {
+        justify-content: center;
+      }
+    }
+
     .footer-section-igreja ul {
       gap: 0.35rem;
     }

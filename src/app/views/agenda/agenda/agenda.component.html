@@ -1,48 +1,71 @@
-<section class="container-agenda">
-  <div class="agenda-header">
-    <h2>Agenda Mensal</h2>
+﻿<section class="container-agenda">
+  <header class="agenda-header">
+    <h2>Agenda mensal</h2>
+
     <div class="agenda-controls">
-      <button (click)="mesAnterior()">← Mês Anterior</button>
+      <button type="button" class="btn-nav" (click)="mesAnterior()" [disabled]="isLoading" aria-label="Ir para o mês anterior">
+        Mês anterior
+      </button>
 
-      <span class="mes-atual"> {{ dataAtual | date:'MMMM yyyy':'':'pt-BR'}} </span>
+      <span class="mes-atual">{{ dataAtual | date:'MMMM yyyy':'': 'pt-BR' }}</span>
 
-      <button (click)="proximoMes()">Próximo Mês →</button>
+      <button type="button" class="btn-nav" (click)="proximoMes()" [disabled]="isLoading" aria-label="Ir para o próximo mês">
+        Próximo mês
+      </button>
+
+      <button type="button" class="btn-secondary" (click)="irParaMesAtual()" [disabled]="isLoading">
+        Hoje
+      </button>
     </div>
+  </header>
+
+  <div *ngIf="isLoading" class="status loading">Carregando eventos...</div>
+
+  <div *ngIf="!isLoading && errorMessage" class="status error">
+    <p>{{ errorMessage }}</p>
+    <button type="button" class="btn-secondary" (click)="buscarCalendario()">Tentar novamente</button>
   </div>
 
-  <div *ngIf="eventos.length === 0" class="sem-eventos">
-    <p>Nenhum evento encontrado.</p>
+  <div *ngIf="!isLoading && !errorMessage && eventos.length === 0" class="status empty">
+    Nenhum evento encontrado para este mês.
   </div>
 
-  <div class="card-grid">
-    <div *ngFor="let evento of eventos; let i = index" class="event-card">
-      <div class="event-date">
+  <div *ngIf="!isLoading && !errorMessage && eventos.length > 0" class="card-grid">
+    <article *ngFor="let evento of eventos; let i = index; trackBy: trackByEvento" class="event-card">
+      <div class="event-date" aria-hidden="true">
         <span class="weekday">{{ getDiaSemanaAbreviado(evento) }}</span>
         <span class="day">{{ getDia(evento) }}</span>
         <span class="month">{{ getMesAbreviado(evento) }}</span>
       </div>
+
       <div class="event-details">
         <h3 class="event-title">{{ evento.summary || 'Sem título' }}</h3>
-        <p class="event-time">🕕 {{ getDataHoraFormatada(evento) }}</p>
 
-        <!--<ng-container *ngIf="evento.attachments">
-          <ng-container *ngFor="let att of evento.attachments">
-            <img
-              *ngIf="att.mimeType.startsWith('image/')"
-              [src]="'https://drive.google.com/uc?export=view&id=' + att.fileId"
+        <p class="event-time">{{ getDataHoraFormatada(evento) }}</p>
 
-              class="event-img"
-              style="max-width: 100%; margin: 8px 0; border-radius: 8px;"
-            />
-            <small>{{ 'https://drive.google.com/uc?export=view&id=' + att.fileId }}</small>
-          </ng-container>
-        </ng-container>-->
+        <p *ngIf="evento.location" class="event-location">📍 {{ evento.location }}</p>
 
-        <p class="event-desc" [class.expandido]="isDescricaoExpandida(i)">{{ evento.description || 'Sem descrição' }}</p>
-        <button *ngIf="evento.description?.length > 20" class="btn-vermais" (click)="toggleDescricao(i)">
+        <p class="event-desc" [class.expandido]="isDescricaoExpandida(i)">
+          {{ getDescricaoLimpa(evento.description) }}
+        </p>
+
+        <button
+          *ngIf="getDescricaoLimpa(evento.description).length > 120"
+          type="button"
+          class="btn-vermais"
+          (click)="toggleDescricao(i)">
           {{ isDescricaoExpandida(i) ? 'Ver menos' : 'Ver mais' }}
         </button>
+
+        <a
+          *ngIf="evento.htmlLink"
+          class="btn-google"
+          [href]="evento.htmlLink"
+          target="_blank"
+          rel="noopener noreferrer">
+          Abrir no Google Agenda
+        </a>
       </div>
-    </div>
+    </article>
   </div>
 </section>

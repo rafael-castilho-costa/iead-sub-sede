@@ -45,12 +45,12 @@
           <span class="culto-label">Culto</span>
           <span class="culto-horario">{{m.culto}}</span>
         </div>
-        <!-- botÃ£o desativado temporariamente
+        <!-- botão desativado temporariamente
         <button class="btn-acessar">Acessar</button>
         -->
       </div>
     </div>
-    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length" aria-label="Ver prÃ³ximos ministÃ©rios">&#10095;</button>
+    <button class="carousel-arrow right" (click)="next()" [disabled]="startIndex + visibleCards >= ministerios.length" aria-label="Ver próximos ministérios">&#10095;</button>
   </div>
 </section>
 
@@ -59,47 +59,86 @@
     <h2>Agenda Semanal</h2>
 
     <div class="agenda-semanal">
-      <ul class="agenda-item">
-        <li class="agenda-card">
-          <span class="agenda-dia">1° Sábado do Mês</span>
-          <span class="agenda-hora">18h30</span>
-          <span class="agenda-evento">Santa Ceia do Senhor</span>
-        </li>
+      <div class="agenda-carousel">
+        <button
+          class="agenda-arrow left"
+          type="button"
+          (click)="prevAgendaCard()"
+          aria-label="Evento anterior da agenda">
+          &#10094;
+        </button>
 
-        <li class="agenda-card">
-          <span class="agenda-dia">Quarta-feira</span>
-          <span class="agenda-hora">19h30</span>
-          <span class="agenda-evento">Culto de Ensino</span>
-        </li>
+        <ul class="agenda-item">
+          <li class="agenda-card">
+            <span class="agenda-dia">{{ agendaSemanal[agendaIndex].dia }}</span>
+            <span class="agenda-hora">{{ agendaSemanal[agendaIndex].hora }}</span>
+            <span class="agenda-evento">{{ agendaSemanal[agendaIndex].evento }}</span>
+          </li>
+        </ul>
 
-        <li class="agenda-card">
-          <span class="agenda-dia">Sexta-feira</span>
-          <span class="agenda-hora">19h30</span>
-          <span class="agenda-evento">Culto de Departamentos</span>
-        </li>
+        <button
+          class="agenda-arrow right"
+          type="button"
+          (click)="nextAgendaCard()"
+          aria-label="Próximo evento da agenda">
+          &#10095;
+        </button>
+      </div>
 
-        <li class="agenda-card">
-          <span class="agenda-dia">Domingo pela manhã</span>
-          <span class="agenda-hora">08h30</span>
-          <span class="agenda-evento">Escola Biblica Dominical</span>
-        </li>
-
-        <li class="agenda-card">
-          <span class="agenda-dia">Domingo anoite</span>
-          <span class="agenda-hora">18h30</span>
-          <span class="agenda-evento">Culto da Familia</span>
-        </li>
-      </ul>
+      <div class="agenda-indicators">
+        <span
+          *ngFor="let item of agendaSemanal; let i = index"
+          [class.active]="i === agendaIndex"
+          (click)="goToAgendaCard(i)">
+        </span>
+      </div>
     </div>
 
-    <button class="btn btn-primary" [routerLink]="['/agenda']">
+    <button class="btn btn-primary btn-grad" [routerLink]="['/agenda']">
       Ver Agenda Completa
     </button>
 
     <p>
-      Fique por dentro de tudo que esta acontecendo em nossa igreja.<br>
+      Fique por dentro de tudo que está acontecendo em nossa igreja.<br>
       <strong>Confira nossa agenda de eventos!</strong>
     </p>
+  </div>
+</section>
+
+<section class="aniversariantes" id="aniversariantes">
+  <div class="aniversariantes-content">
+    <h2>Aniversariantes da Semana</h2>
+    <p class="aniversariantes-subtitle">Celebrando vidas que fazem parte da nossa igreja.</p>
+
+    <div *ngIf="loadingAniversariantes" class="aniversariantes-status">
+      Carregando aniversariantes...
+    </div>
+
+    <div *ngIf="!loadingAniversariantes && erroAniversariantes" class="aniversariantes-status error">
+      <p>{{ erroAniversariantes }}</p>
+      <button type="button" class="btn-retry" (click)="carregarAniversariantesSemana()">Tentar novamente</button>
+    </div>
+
+    <div *ngIf="!loadingAniversariantes && !erroAniversariantes && aniversariantesSemana.length === 0" class="aniversariantes-status">
+      Nenhum aniversariante nesta semana (domingo a sábado).
+    </div>
+
+    <div *ngIf="!loadingAniversariantes && !erroAniversariantes && aniversariantesSemana.length > 0" class="aniversariantes-grid">
+      <article class="aniversariante-card" *ngFor="let item of aniversariantesSemana">
+        <div class="aniversariante-avatar" [class.sem-foto]="!item.foto">
+          <img *ngIf="item.foto" [src]="item.foto" [alt]="item.nome" loading="lazy" />
+          <span *ngIf="!item.foto">{{ item.nome.charAt(0) }}</span>
+        </div>
+
+        <div class="aniversariante-info">
+          <h3>{{ item.nome }}</h3>
+          <div class="meta">
+            <span class="data">{{ item.labelData }}</span>
+            <span class="dias">{{ getLabelAniversario(item) }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -127,7 +166,7 @@
     <p>Estamos passando por um momento de grande transformação e crescimento.
       A reforma da nossa igreja é um passo importante para melhor servir a nossa comunidade.
       Acompanhe as novidades e participe desse processo conosco!</p>
-    <button class="btn-primary" [routerLink]="['/reforma']">Saiba Mais</button>
+    <button class="btn-primary btn-grad" [routerLink]="['/reforma']">Saiba Mais</button>
     </div>
 
 
@@ -151,7 +190,8 @@
       <img src="/assets/coracao-contribua.svg" alt="Contribua" class="contribua-image" />
       <h2>Doações e Ofertas</h2>
       <br><p>Contribua com a obra do Senhor.</p>
-      <button class="button-contribua" [routerLink]="['/contribuicao']">Contribuir</button>
+      <button class="button-contribua btn-grad" [routerLink]="['/contribuicao']">Contribuir</button>
     </div>
   </div>
 </section>
+

@@ -1,1 +1,52 @@
-<p>contato works!</p>
+﻿<section class="contato-page">
+  <header class="contato-hero">
+    <h1>Contato</h1>
+    <p>Fale conosco, envie seu pedido de oração ou agende uma visita. Estamos prontos para te receber.</p>
+  </header>
+
+  <div class="contato-grid">
+    <section class="card card-destaque" aria-labelledby="fale-conosco">
+      <h2 id="fale-conosco">Fale Conosco</h2>
+      <p>Atendimento da secretaria e equipe pastoral.</p>
+
+      <div class="actions">
+        <a class="btn btn-whatsapp" [href]="whatsappLink" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="btn btn-outline" [href]="telefoneLink">Ligar agora</a>
+      </div>
+
+      <ul class="lista-info">
+        <li><strong>Telefone:</strong> (62) 99999-9999</li>
+        <li><strong>Email:</strong> <a [href]="emailLink">contato&#64;ieadsubsede.org.br</a></li>
+        <li><strong>Endereço:</strong> Rua Vereador Jose Eduardo, Qd 8b, Lote 01 - Jardim Todos os Santos, Senador Canedo - GO</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="cultos-title">
+      <h2 id="cultos-title">Horários de Culto</h2>
+      <ul class="agenda-lista">
+        <li><span>Quarta-feira</span><strong>19h30</strong></li>
+        <li><span>Sexta-feira</span><strong>19h30</strong></li>
+        <li><span>Domingo (EBD)</span><strong>08h30</strong></li>
+        <li><span>Domingo (Família)</span><strong>18h30</strong></li>
+      </ul>
+      <a class="link-agenda" [routerLink]="['/agenda']">Ver agenda completa</a>
+    </section>
+
+    <section class="card" aria-labelledby="visita-title">
+      <h2 id="visita-title">Primeira Visita</h2>
+      <p>Se você deseja visitar nossa igreja, teremos alegria em te receber com sua família.</p>
+      <p class="dica">Dica: chegue 15 minutos antes para ser acolhido com tranquilidade.</p>
+      <a class="btn btn-outline" [href]="mapsLink" target="_blank" rel="noopener noreferrer">Como chegar</a>
+    </section>
+  </div>
+
+  <section class="mapa-card" aria-label="Mapa da igreja">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d571.6136872836609!2d-49.09216473686059!3d-16.69992855507063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ee88fd5f98415%3A0xec78f86eafda9edf!2sIgreja%20EVANG%C3%89LICA%20Assembleia%20de%20Deus!5e1!3m2!1spt-BR!2sbr!4v1751649650738!5m2!1spt-BR!2sbr"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Localizacao da igreja"
+      allowfullscreen>
+    </iframe>
+  </section>
+</section>

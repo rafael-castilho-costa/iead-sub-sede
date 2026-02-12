@@ -1,0 +1,53 @@
+﻿<section class="container-liderancas">
+  <div class="main-content">
+    <header class="liderancas-hero">
+      <h1 class="titulo-section-liderancas">Lideranças</h1>
+      <p>Conheça os líderes que servem com dedicação no cuidado pastoral e na condução da igreja.</p>
+    </header>
+
+    <div *ngIf="isLoading" class="status loading">Carregando quadro de lideranças...</div>
+
+    <div *ngIf="!isLoading && errorMessage" class="status error">
+      <p>{{ errorMessage }}</p>
+      <button type="button" class="btn-retry" (click)="carregarLiderancas()">Tentar novamente</button>
+    </div>
+
+    <div *ngIf="!isLoading && !errorMessage && liderancas.length === 0" class="status empty">
+      Nenhuma liderança cadastrada no momento.
+    </div>
+
+    <section
+      *ngIf="!isLoading && !errorMessage && liderancas.length > 0"
+      class="liderancas-cards-container"
+      aria-label="Quadro de lideranças">
+      <article
+        class="liderancas-card"
+        *ngFor="let lider of liderancas; let i = index; trackBy: trackByNome">
+
+        <div class="avatar-wrap">
+          <img [src]="lider.foto" [alt]="lider.nome" loading="lazy" />
+        </div>
+
+        <div class="card-content">
+          <h2>{{ lider.nome }}</h2>
+          <p class="cargo">{{ lider.titulo }}</p>
+          <p class="resumo">{{ lider.resumo }}</p>
+
+          <div *ngIf="lider.emAtualizacao" class="badge-atualizacao">
+            Biografia completa em atualização.
+          </div>
+
+          <ng-container *ngIf="lider.biografia">
+            <p class="biografia" [class.expandida]="isBiografiaExpandida(i)">
+              {{ lider.biografia }}
+            </p>
+
+            <button type="button" class="btn-biografia" (click)="toggleBiografia(i)">
+              {{ isBiografiaExpandida(i) ? 'Ver menos' : 'Ver biografia completa' }}
+            </button>
+          </ng-container>
+        </div>
+      </article>
+    </section>
+  </div>
+</section>
