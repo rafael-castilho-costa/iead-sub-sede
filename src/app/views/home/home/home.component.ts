@@ -123,12 +123,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
   private readonly aniversariantesService = inject(HomeAniversariantesService);
+  private readonly isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
+    if (this.isBrowser) {
+      this.updateVisibleCards();
+    }
+  }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.updateVisibleCards();
+    if (this.isBrowser) {
       this.iniciarAutoSlide();
       this.carregarAniversariantesSemana();
     }
@@ -145,17 +151,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize')
+  @HostListener('window:orientationchange')
   onResize(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.updateVisibleCards();
-    }
+    this.updateVisibleCards();
   }
 
   updateVisibleCards(): void {
-    const width = window.innerWidth;
-    this.isAgendaMobile = width < 900;
-    this.isMinisteriosMobile = width < 900;
-    this.visibleCards = this.isMinisteriosMobile ? 1 : 3;
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const isMobileViewport = window.matchMedia('(max-width: 899.98px)').matches;
+    this.isAgendaMobile = isMobileViewport;
+    this.isMinisteriosMobile = isMobileViewport;
+    this.visibleCards = isMobileViewport ? 1 : 3;
   }
 
   get visibleMinisterios(): Ministerio[] {
