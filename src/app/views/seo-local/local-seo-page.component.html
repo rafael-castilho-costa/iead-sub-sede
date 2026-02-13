@@ -1,0 +1,22 @@
+<section class="seo-local-page">
+  <header class="seo-local-hero">
+    <h1>{{ pageData.heading }}</h1>
+    <p>{{ pageData.intro }}</p>
+  </header>
+
+  <section class="seo-local-blocos">
+    <article class="seo-local-card" *ngFor="let section of pageData.sections">
+      <h2>{{ section.title }}</h2>
+      <p>{{ section.content }}</p>
+    </article>
+  </section>
+
+  <section class="seo-local-cta">
+    <h2>Visite a IEAD Jardim Todos os Santos</h2>
+    <p>Confira os horários de culto e fale conosco para planejar sua visita.</p>
+    <div class="cta-actions">
+      <a class="btn-primary" [routerLink]="['/contato']">Falar com a igreja</a>
+      <a class="btn-outline" [routerLink]="['/agenda']">Ver agenda</a>
+    </div>
+  </section>
+</section>

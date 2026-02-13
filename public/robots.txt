@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ieadsubsede.org.br/sitemap.xml
+

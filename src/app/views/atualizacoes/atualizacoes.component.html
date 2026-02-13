@@ -1,0 +1,54 @@
+<section class="atualizacoes-page">
+  <header class="atualizacoes-hero">
+    <h1>Atualizações da IEAD Jardim Todos os Santos</h1>
+    <p>Espaço para publicações recorrentes com resumos de mensagens, eventos e programações futuras.</p>
+  </header>
+
+  <div *ngIf="carregando" class="status">Carregando atualizações...</div>
+  <div *ngIf="!carregando && erroCarregamento" class="status error">
+    Não foi possível carregar os conteúdos agora.
+  </div>
+
+  <section *ngIf="!carregando && !erroCarregamento" class="atualizacoes-bloco">
+    <div class="atualizacoes-header">
+      <h2>Resumos de Mensagens</h2>
+      <p>Atualize o arquivo <code>src/assets/data/conteudos/mensagens.json</code> para publicar novos resumos.</p>
+    </div>
+    <div class="atualizacoes-grid">
+      <article class="atualizacoes-card" *ngFor="let item of mensagens">
+        <h3>{{ item.titulo }}</h3>
+        <p class="meta">{{ item.data }}</p>
+        <p>{{ item.resumo }}</p>
+      </article>
+    </div>
+  </section>
+
+  <section *ngIf="!carregando && !erroCarregamento" class="atualizacoes-bloco">
+    <div class="atualizacoes-header">
+      <h2>Fotos de Cultos e Eventos</h2>
+      <p>Atualize o arquivo <code>src/assets/data/conteudos/eventos.json</code> com novas fotos e descrições.</p>
+    </div>
+    <div class="atualizacoes-grid">
+      <article class="atualizacoes-card" *ngFor="let item of eventos">
+        <img *ngIf="item.imagem" [src]="item.imagem" [alt]="item.titulo" loading="lazy" decoding="async" />
+        <h3>{{ item.titulo }}</h3>
+        <p class="meta">{{ item.data }}</p>
+        <p>{{ item.descricao }}</p>
+      </article>
+    </div>
+  </section>
+
+  <section *ngIf="!carregando && !erroCarregamento" class="atualizacoes-bloco">
+    <div class="atualizacoes-header">
+      <h2>Programações Futuras</h2>
+      <p>Atualize o arquivo <code>src/assets/data/conteudos/programacoes.json</code> para manter o calendário em dia.</p>
+    </div>
+    <div class="atualizacoes-grid">
+      <article class="atualizacoes-card" *ngFor="let item of programacoes">
+        <h3>{{ item.titulo }}</h3>
+        <p class="meta">{{ item.data }} | {{ item.horario }}</p>
+        <p>{{ item.local }}</p>
+      </article>
+    </div>
+  </section>
+</section>

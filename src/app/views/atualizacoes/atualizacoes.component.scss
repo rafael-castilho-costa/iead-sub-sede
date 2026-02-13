@@ -1,0 +1,125 @@
+.atualizacoes-page {
+  --brand: #2e6ea6;
+  --brand-strong: #1f588a;
+  --text: #243547;
+  --muted: #5b6a7a;
+
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 8rem 1rem 3rem;
+}
+
+.atualizacoes-hero {
+  text-align: center;
+  margin-bottom: 1.1rem;
+
+  h1 {
+    margin: 0;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.2rem, 3vw, 2.9rem);
+    color: var(--brand);
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    margin: 0.7rem auto 0;
+    max-width: 760px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+}
+
+.status {
+  background: #f7fbff;
+  border: 1px solid #d6e5f4;
+  border-radius: 12px;
+  padding: 0.9rem;
+  color: #1e405b;
+}
+
+.status.error {
+  background: #fff6f6;
+  border-color: #f3c9c9;
+  color: #7b2f2f;
+}
+
+.atualizacoes-bloco {
+  margin-top: 1.25rem;
+}
+
+.atualizacoes-header {
+  margin-bottom: 0.75rem;
+
+  h2 {
+    margin: 0 0 0.3rem;
+    color: var(--brand-strong);
+    font-family: 'Sora', sans-serif;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+  }
+}
+
+.atualizacoes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.atualizacoes-card {
+  border: 1px solid #d9e6f2;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
+  box-shadow: 0 10px 24px rgba(19, 69, 109, 0.08);
+  padding: 1rem;
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.65rem;
+  }
+
+  h3 {
+    margin: 0 0 0.35rem;
+    color: var(--brand-strong);
+    font-family: 'Sora', sans-serif;
+    font-size: 1.08rem;
+  }
+
+  .meta {
+    margin: 0 0 0.45rem;
+    color: #4a6882;
+    font-weight: 600;
+    font-size: 0.86rem;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.93rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .atualizacoes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .atualizacoes-page {
+    padding: 6.5rem 0.8rem 2.2rem;
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "titulo": "Culto da Família",
+    "data": "09/02/2026",
+    "descricao": "Registro do culto com participação da igreja e visitantes em um momento de comunhão e louvor.",
+    "imagem": "/assets/reforma/reforma-externa-durante1.jpeg"
+  },
+  {
+    "titulo": "Culto de Ensino",
+    "data": "05/02/2026",
+    "descricao": "Noite dedicada à exposição bíblica e crescimento espiritual da congregação.",
+    "imagem": "/assets/reforma/reforma-externa-durante3.jpg"
+  },
+  {
+    "titulo": "Encontro de Departamentos",
+    "data": "31/01/2026",
+    "descricao": "Momento de integração entre os ministérios com oração e alinhamento das próximas ações."
+  }
+]
+

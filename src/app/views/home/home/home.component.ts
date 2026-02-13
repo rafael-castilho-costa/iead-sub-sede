@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ];
 
-  visibleCards = 3;
+  visibleCards = 1;
   startIndex = 0;
 
   imagens: string[] = [
@@ -135,6 +135,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isBrowser) {
+      this.updateVisibleCards();
       this.iniciarAutoSlide();
       this.carregarAniversariantesSemana();
     }

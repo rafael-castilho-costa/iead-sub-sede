@@ -12,6 +12,14 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 const app = express();
 const commonEngine = new CommonEngine();
 
+app.get('/home', (_req, res) => {
+  res.redirect(301, '/');
+});
+
+app.get('/home/', (_req, res) => {
+  res.redirect(301, '/');
+});
+
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
