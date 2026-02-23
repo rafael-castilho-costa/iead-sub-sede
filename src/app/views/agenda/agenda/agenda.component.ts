@@ -7,6 +7,14 @@ interface GoogleCalendarDate {
   dateTime?: string;
 }
 
+interface GoogleCalendarAttachment {
+  fileId?: string;
+  fileUrl?: string;
+  mimeType?: string;
+  title?: string;
+  iconLink?: string;
+}
+
 interface GoogleCalendarEvent {
   id: string;
   summary?: string;
@@ -16,6 +24,7 @@ interface GoogleCalendarEvent {
   status?: string;
   start?: GoogleCalendarDate;
   end?: GoogleCalendarDate;
+  attachments?: GoogleCalendarAttachment[];
 }
 
 interface GoogleCalendarEventsResponse {
@@ -38,6 +47,9 @@ export class AgendaComponent implements OnInit {
   errorMessage = '';
   dataAtual = new Date();
   eventosExpandidos = new Set<number>();
+  imagensFalharam = new Set<string>();
+  imagemSelecionada: string | null = null;
+  imagemSelecionadaTitulo: string | null = null;
 
   private readonly calendarId = '9d2fa71088dd0d42b7ae86340904dbc4415abaa0156c9978716f0862624cb800@group.calendar.google.com';
   private readonly apiKey = 'AIzaSyBMODYR22u6NiHsHoVkdRf8gu6u8otzusY';
@@ -85,7 +97,8 @@ export class AgendaComponent implements OnInit {
       showDeleted: 'false',
       maxResults: '250',
       timeZone: this.timezone,
-      fields: 'items(id,summary,description,location,htmlLink,status,start,end)'
+      supportsAttachments: 'true',
+      fields: 'items(id,summary,description,location,htmlLink,status,start,end,attachments(fileId,fileUrl,mimeType,title,iconLink))'
     });
 
     this.isLoading = true;
@@ -186,6 +199,43 @@ export class AgendaComponent implements OnInit {
       .trim();
   }
 
+  getImagemEvento(evento: GoogleCalendarEvent): string | null {
+    if (this.imagensFalharam.has(evento.id)) {
+      return null;
+    }
+
+    const anexos = evento.attachments?.filter((anexo) => anexo.mimeType?.startsWith('image/')) ?? [];
+    if (anexos.length) {
+      const anexo = anexos[0];
+      if (anexo.fileId) {
+        return this.getDriveThumbnail(anexo.fileId);
+      }
+      if (anexo.fileUrl) {
+        const fileId = this.extrairDriveFileId(anexo.fileUrl);
+        if (fileId) {
+          return this.getDriveThumbnail(fileId);
+        }
+        return anexo.fileUrl;
+      }
+    }
+
+    return this.extrairImagemDaDescricao(evento.description);
+  }
+
+  registrarErroImagem(evento: GoogleCalendarEvent): void {
+    this.imagensFalharam.add(evento.id);
+  }
+
+  abrirImagem(url: string, titulo?: string): void {
+    this.imagemSelecionada = url;
+    this.imagemSelecionadaTitulo = titulo ?? null;
+  }
+
+  fecharImagem(): void {
+    this.imagemSelecionada = null;
+    this.imagemSelecionadaTitulo = null;
+  }
+
   private getEventDate(evento: GoogleCalendarEvent): Date {
     const dateTime = evento.start?.dateTime;
     if (dateTime) {
@@ -227,5 +277,44 @@ export class AgendaComponent implements OnInit {
     const offsetHora = String(Math.floor(absOffset / 60)).padStart(2, '0');
     const offsetMin = String(absOffset % 60).padStart(2, '0');
     return `${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}${sinal}${offsetHora}:${offsetMin}`;
+  }
+
+  private extrairImagemDaDescricao(descricao?: string): string | null {
+    if (!descricao) {
+      return null;
+    }
+
+    const matchDireto = descricao.match(/https?:\/\/\S+\.(?:png|jpe?g|gif|webp)(?:\?\S+)?/i);
+    if (matchDireto) {
+      return matchDireto[0];
+    }
+
+    const matchDrive = descricao.match(/https?:\/\/\S*drive\.google\.com\/\S+/i);
+    if (matchDrive) {
+      const fileId = this.extrairDriveFileId(matchDrive[0]);
+      if (fileId) {
+        return this.getDriveThumbnail(fileId);
+      }
+    }
+
+    return null;
+  }
+
+  private getDriveThumbnail(fileId: string): string {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
+  }
+
+  private extrairDriveFileId(url: string): string | null {
+    const byId = url.match(/[?&]id=([^&]+)/i);
+    if (byId) {
+      return byId[1];
+    }
+
+    const byFile = url.match(/\/file\/d\/([^/]+)/i);
+    if (byFile) {
+      return byFile[1];
+    }
+
+    return null;
   }
 }

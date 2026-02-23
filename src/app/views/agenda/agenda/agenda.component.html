@@ -38,10 +38,15 @@
         <span class="month">{{ getMesAbreviado(evento) }}</span>
       </div>
 
-      <div class="event-details">
-        <h3 class="event-title">{{ evento.summary || 'Sem título' }}</h3>
+      <div class="event-header-mobile">
+        <h3 class="event-title mobile-only">{{ evento.summary || 'Sem título' }}</h3>
+        <p class="event-time mobile-only">{{ getDataHoraFormatada(evento) }}</p>
+      </div>
 
-        <p class="event-time">{{ getDataHoraFormatada(evento) }}</p>
+      <div class="event-details">
+        <h3 class="event-title desktop-only">{{ evento.summary || 'Sem título' }}</h3>
+
+        <p class="event-time desktop-only">{{ getDataHoraFormatada(evento) }}</p>
 
         <p *ngIf="evento.location" class="event-location">📍 {{ evento.location }}</p>
 
@@ -66,6 +71,25 @@
           Abrir no Google Agenda
         </a>
       </div>
+
+      <button
+        *ngIf="getImagemEvento(evento) as imageUrl"
+        type="button"
+        class="event-media event-media-button"
+        (click)="abrirImagem(imageUrl, evento.summary)">
+        <img
+          [src]="imageUrl"
+          [alt]="evento.summary || 'Imagem do evento'"
+          loading="lazy"
+          (error)="registrarErroImagem(evento)">
+      </button>
     </article>
   </div>
 </section>
+
+<div *ngIf="imagemSelecionada" class="event-lightbox" (click)="fecharImagem()">
+  <div class="event-lightbox-content" (click)="$event.stopPropagation()">
+    <button type="button" class="event-lightbox-close" (click)="fecharImagem()">Fechar</button>
+    <img [src]="imagemSelecionada" [alt]="imagemSelecionadaTitulo || 'Imagem do evento'">
+  </div>
+</div>
