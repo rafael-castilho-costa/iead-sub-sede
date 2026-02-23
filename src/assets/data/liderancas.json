@@ -16,8 +16,15 @@
   {
     "nome": "Ev. Ezequiel Teixeira",
     "titulo": "Liderança Pastoral",
-    "foto": "assets/pastores-photo.svg",
+    "foto": "assets/photo-ev-ezequiel.svg",
     "resumo": "Contribui no pastoreio e no fortalecimento ministerial da comunidade.",
+    "emAtualizacao": true
+  },
+  {
+    "nome": "Pr. Joel",
+    "titulo": "Liderança Pastoral",
+    "foto": "assets/photo-pr-joel.svg",
+    "resumo": "Envolvimento pastoral e suporte ao desenvolvimento espiritual da igreja.",
     "emAtualizacao": true
   }
 ]
