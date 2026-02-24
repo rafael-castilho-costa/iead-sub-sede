@@ -34,6 +34,14 @@ interface GoogleCalendarEventsResponse {
   };
 }
 
+interface CalendarDayCell {
+  date: Date;
+  inCurrentMonth: boolean;
+  isToday: boolean;
+  isSelected: boolean;
+  events: GoogleCalendarEvent[];
+}
+
 @Component({
   selector: 'app-agenda',
   standalone: true,
@@ -43,6 +51,10 @@ interface GoogleCalendarEventsResponse {
 })
 export class AgendaComponent implements OnInit {
   eventos: GoogleCalendarEvent[] = [];
+  calendarioMes: CalendarDayCell[] = [];
+  readonly semanaLabels = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  eventosDiaSelecionado: GoogleCalendarEvent[] = [];
+  labelDiaSelecionado = '';
   isLoading = false;
   errorMessage = '';
   dataAtual = new Date();
@@ -50,6 +62,11 @@ export class AgendaComponent implements OnInit {
   imagensFalharam = new Set<string>();
   imagemSelecionada: string | null = null;
   imagemSelecionadaTitulo: string | null = null;
+  eventoPopup: GoogleCalendarEvent | null = null;
+  descricaoPopupExpandida = false;
+  readonly enderecoIgreja = '8W25+27 Jardim de Todos Os Santos, Sen. Canedo - GO';
+  readonly mapsLinkIgreja = 'https://maps.app.goo.gl/4LxnSPhNCtEZXZKL6';
+  private diaSelecionadoKey: string | null = null;
 
   private readonly calendarId = 'ieadmjts@gmail.com';
   private readonly apiKey = 'AIzaSyAM19ONBVMFZ5W0w3FuE1yXAD5_EabOo2M';
@@ -129,12 +146,16 @@ export class AgendaComponent implements OnInit {
         .filter((evento) => evento.status !== 'cancelled')
         .filter((evento) => this.isEventInReferenceMonth(evento, this.dataAtual))
         .sort((a, b) => this.getEventDate(a).getTime() - this.getEventDate(b).getTime());
+      this.montarCalendarioMes();
     } catch (error) {
       if (currentRequest !== this.requestVersion) {
         return;
       }
 
       this.eventos = [];
+      this.calendarioMes = [];
+      this.eventosDiaSelecionado = [];
+      this.labelDiaSelecionado = '';
       this.errorMessage = 'Não foi possível carregar a agenda agora. Tente novamente.';
       console.error('Erro ao buscar eventos:', error);
     } finally {
@@ -188,6 +209,42 @@ export class AgendaComponent implements OnInit {
     return dias[data.getDay()];
   }
 
+  getNumeroDia(data: Date): string {
+    return data.getDate().toString();
+  }
+
+  getHoraEvento(evento: GoogleCalendarEvent): string {
+    if (evento.start?.date) {
+      return 'Dia inteiro';
+    }
+
+    const data = this.getEventDate(evento);
+    return data.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  getMapsLink(evento: GoogleCalendarEvent): string {
+    const destinoEvento = evento.location?.trim();
+    if (!destinoEvento) {
+      return this.mapsLinkIgreja;
+    }
+
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destinoEvento)}`;
+  }
+
+  selecionarDia(celula: CalendarDayCell): void {
+    this.aplicarSelecaoDia(this.getDateKey(celula.date));
+  }
+
+  trackByDia(_: number, celula: CalendarDayCell): string {
+    const ano = celula.date.getFullYear();
+    const mes = String(celula.date.getMonth() + 1).padStart(2, '0');
+    const dia = String(celula.date.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+  }
+
   getDescricaoLimpa(descricao?: string): string {
     if (!descricao) {
       return 'Sem descrição.';
@@ -229,6 +286,20 @@ export class AgendaComponent implements OnInit {
   abrirImagem(url: string, titulo?: string): void {
     this.imagemSelecionada = url;
     this.imagemSelecionadaTitulo = titulo ?? null;
+  }
+
+  abrirPopupEvento(evento: GoogleCalendarEvent): void {
+    this.eventoPopup = evento;
+    this.descricaoPopupExpandida = false;
+  }
+
+  fecharPopupEvento(): void {
+    this.eventoPopup = null;
+    this.descricaoPopupExpandida = false;
+  }
+
+  toggleDescricaoPopup(): void {
+    this.descricaoPopupExpandida = !this.descricaoPopupExpandida;
   }
 
   fecharImagem(): void {
@@ -316,5 +387,96 @@ export class AgendaComponent implements OnInit {
     }
 
     return null;
+  }
+
+  private montarCalendarioMes(): void {
+    const inicioMes = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), 1);
+    const fimMes = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth() + 1, 0);
+    const inicioGrade = new Date(inicioMes);
+    inicioGrade.setDate(inicioMes.getDate() - inicioMes.getDay());
+    const fimGrade = new Date(fimMes);
+    fimGrade.setDate(fimMes.getDate() + (6 - fimMes.getDay()));
+
+    const eventosPorDia = new Map<string, GoogleCalendarEvent[]>();
+    for (const evento of this.eventos) {
+      const key = this.getEventDateKey(evento);
+      const eventosDoDia = eventosPorDia.get(key) ?? [];
+      eventosDoDia.push(evento);
+      eventosPorDia.set(key, eventosDoDia);
+    }
+
+    for (const eventosDoDia of eventosPorDia.values()) {
+      eventosDoDia.sort((a, b) => this.getEventDate(a).getTime() - this.getEventDate(b).getTime());
+    }
+
+    const hoje = new Date();
+    const hojeKey = this.getDateKey(hoje);
+    const celulas: CalendarDayCell[] = [];
+
+    for (let data = new Date(inicioGrade); data <= fimGrade; data.setDate(data.getDate() + 1)) {
+      const key = this.getDateKey(data);
+      celulas.push({
+        date: new Date(data),
+        inCurrentMonth: data.getMonth() === this.dataAtual.getMonth(),
+        isToday: key === hojeKey,
+        isSelected: false,
+        events: eventosPorDia.get(key) ?? []
+      });
+    }
+
+    this.calendarioMes = celulas;
+
+    const diaPreferido = this.resolverDiaSelecionadoInicial(eventosPorDia);
+    this.aplicarSelecaoDia(diaPreferido);
+  }
+
+  private resolverDiaSelecionadoInicial(eventosPorDia: Map<string, GoogleCalendarEvent[]>): string {
+    const hoje = new Date();
+    const hojeNoMes = hoje.getMonth() === this.dataAtual.getMonth() && hoje.getFullYear() === this.dataAtual.getFullYear();
+    const hojeKey = this.getDateKey(hoje);
+
+    if (hojeNoMes && eventosPorDia.has(hojeKey)) {
+      return hojeKey;
+    }
+
+    if (this.diaSelecionadoKey && eventosPorDia.has(this.diaSelecionadoKey)) {
+      return this.diaSelecionadoKey;
+    }
+
+    const primeiroComEvento = this.calendarioMes.find((celula) => celula.inCurrentMonth && celula.events.length > 0);
+    if (primeiroComEvento) {
+      return this.getDateKey(primeiroComEvento.date);
+    }
+
+    return this.getDateKey(new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), 1));
+  }
+
+  private aplicarSelecaoDia(key: string): void {
+    this.diaSelecionadoKey = key;
+    this.calendarioMes = this.calendarioMes.map((celula) => ({
+      ...celula,
+      isSelected: this.getDateKey(celula.date) === key
+    }));
+
+    const selecionado = this.calendarioMes.find((celula) => this.getDateKey(celula.date) === key);
+    this.eventosDiaSelecionado = selecionado?.events ?? [];
+    this.labelDiaSelecionado = selecionado
+      ? selecionado.date.toLocaleDateString('pt-BR', {
+          weekday: 'long',
+          day: '2-digit',
+          month: 'long'
+        })
+      : '';
+  }
+
+  private getEventDateKey(evento: GoogleCalendarEvent): string {
+    return this.getDateKey(this.getEventDate(evento));
+  }
+
+  private getDateKey(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
   }
 }

@@ -26,66 +26,131 @@
     <button type="button" class="btn-secondary" (click)="buscarCalendario()">Tentar novamente</button>
   </div>
 
-  <div *ngIf="!isLoading && !errorMessage && eventos.length === 0" class="status empty">
-    Nenhum evento encontrado para este mês.
-  </div>
+  <div *ngIf="!isLoading && !errorMessage" class="calendar-layout">
+    <p *ngIf="eventos.length === 0" class="status empty">Nenhum evento encontrado para este mês.</p>
 
-  <div *ngIf="!isLoading && !errorMessage && eventos.length > 0" class="card-grid">
-    <article *ngFor="let evento of eventos; let i = index; trackBy: trackByEvento" class="event-card">
-      <div class="event-date" aria-hidden="true">
-        <span class="weekday">{{ getDiaSemanaAbreviado(evento) }}</span>
-        <span class="day">{{ getDia(evento) }}</span>
-        <span class="month">{{ getMesAbreviado(evento) }}</span>
+    <section class="desktop-calendar" aria-label="Agenda mensal">
+      <div class="calendar-weekdays">
+        <span *ngFor="let diaSemana of semanaLabels">{{ diaSemana }}</span>
       </div>
 
-      <div class="event-header-mobile">
-        <h3 class="event-title mobile-only">{{ evento.summary || 'Sem título' }}</h3>
-        <p class="event-time mobile-only">{{ getDataHoraFormatada(evento) }}</p>
+      <div class="calendar-grid">
+        <button
+          *ngFor="let celula of calendarioMes; trackBy: trackByDia"
+          type="button"
+          class="calendar-day"
+          [class.outside-month]="!celula.inCurrentMonth"
+          [class.today]="celula.isToday"
+          [class.selected]="celula.isSelected"
+          [class.has-events]="celula.events.length > 0"
+          (click)="selecionarDia(celula)">
+          <span class="calendar-day-number">{{ getNumeroDia(celula.date) }}</span>
+
+          <div class="calendar-day-events" *ngIf="celula.events.length > 0">
+            <button
+              type="button"
+              class="calendar-pill"
+              *ngFor="let evento of celula.events | slice:0:3"
+              (click)="abrirPopupEvento(evento); $event.stopPropagation()">
+              {{ getHoraEvento(evento) }} {{ evento.summary || 'Sem título' }}
+            </button>
+            <span class="calendar-more" *ngIf="celula.events.length > 3">+{{ celula.events.length - 3 }} eventos</span>
+          </div>
+        </button>
       </div>
 
-      <div class="event-details">
-        <h3 class="event-title desktop-only">{{ evento.summary || 'Sem título' }}</h3>
+    </section>
 
-        <p class="event-time desktop-only">{{ getDataHoraFormatada(evento) }}</p>
+    <div class="card-grid mobile-list">
+      <article *ngFor="let evento of eventos; let i = index; trackBy: trackByEvento" class="event-card">
+        <div class="event-date" aria-hidden="true">
+          <span class="weekday">{{ getDiaSemanaAbreviado(evento) }}</span>
+          <span class="day">{{ getDia(evento) }}</span>
+          <span class="month">{{ getMesAbreviado(evento) }}</span>
+        </div>
 
-        <p *ngIf="evento.location" class="event-location">📍 {{ evento.location }}</p>
+        <div class="event-header-mobile">
+          <h3 class="event-title mobile-only">{{ evento.summary || 'Sem título' }}</h3>
+          <p class="event-time mobile-only">{{ getDataHoraFormatada(evento) }}</p>
+        </div>
 
-        <p class="event-desc" [class.expandido]="isDescricaoExpandida(i)">
-          {{ getDescricaoLimpa(evento.description) }}
-        </p>
+        <div class="event-details">
+          <h3 class="event-title desktop-only">{{ evento.summary || 'Sem título' }}</h3>
+          <p class="event-time desktop-only">{{ getDataHoraFormatada(evento) }}</p>
+          <p *ngIf="evento.location" class="event-location">📍 {{ evento.location }}</p>
+          <p class="event-desc" [class.expandido]="isDescricaoExpandida(i)">
+            {{ getDescricaoLimpa(evento.description) }}
+          </p>
+
+          <button
+            *ngIf="getDescricaoLimpa(evento.description).length > 120"
+            type="button"
+            class="btn-vermais"
+            (click)="toggleDescricao(i)">
+            {{ isDescricaoExpandida(i) ? 'Ver menos' : 'Ver mais' }}
+          </button>
+
+          <a
+            *ngIf="evento.htmlLink"
+            class="btn-google"
+            [href]="evento.htmlLink"
+            target="_blank"
+            rel="noopener noreferrer">
+            Abrir no Google Agenda
+          </a>
+        </div>
 
         <button
-          *ngIf="getDescricaoLimpa(evento.description).length > 120"
+          *ngIf="getImagemEvento(evento) as imageUrl"
           type="button"
-          class="btn-vermais"
-          (click)="toggleDescricao(i)">
-          {{ isDescricaoExpandida(i) ? 'Ver menos' : 'Ver mais' }}
+          class="event-media event-media-button"
+          (click)="abrirImagem(imageUrl, evento.summary)">
+          <img
+            [src]="imageUrl"
+            [alt]="evento.summary || 'Imagem do evento'"
+            loading="lazy"
+            (error)="registrarErroImagem(evento)">
         </button>
-
-        <a
-          *ngIf="evento.htmlLink"
-          class="btn-google"
-          [href]="evento.htmlLink"
-          target="_blank"
-          rel="noopener noreferrer">
-          Abrir no Google Agenda
-        </a>
-      </div>
-
-      <button
-        *ngIf="getImagemEvento(evento) as imageUrl"
-        type="button"
-        class="event-media event-media-button"
-        (click)="abrirImagem(imageUrl, evento.summary)">
-        <img
-          [src]="imageUrl"
-          [alt]="evento.summary || 'Imagem do evento'"
-          loading="lazy"
-          (error)="registrarErroImagem(evento)">
-      </button>
-    </article>
+      </article>
+    </div>
   </div>
 </section>
+
+<div *ngIf="eventoPopup" class="event-popup-overlay" (click)="fecharPopupEvento()">
+  <div class="event-popup" (click)="$event.stopPropagation()">
+    <button type="button" class="event-popup-close" (click)="fecharPopupEvento()">Fechar</button>
+    <h3 class="event-popup-title">{{ eventoPopup.summary || 'Sem título' }}</h3>
+    <p class="event-popup-time">{{ getDataHoraFormatada(eventoPopup) }}</p>
+    <a
+      class="btn-google btn-maps"
+      [href]="getMapsLink(eventoPopup)"
+      target="_blank"
+      rel="noopener noreferrer">
+      Ver no Google Maps
+    </a>
+
+    <div class="event-popup-description">
+      <p [class.expandido]="descricaoPopupExpandida">
+        {{ getDescricaoLimpa(eventoPopup.description) }}
+      </p>
+      <button
+        *ngIf="getDescricaoLimpa(eventoPopup.description).length > 120"
+        type="button"
+        class="btn-vermais"
+        (click)="toggleDescricaoPopup()">
+        {{ descricaoPopupExpandida ? 'Ver menos' : 'Ver mais' }}
+      </button>
+    </div>
+
+    <div *ngIf="getImagemEvento(eventoPopup) as imageUrl" class="event-popup-media">
+      <img
+        [src]="imageUrl"
+        [alt]="eventoPopup.summary || 'Cartaz do evento'"
+        loading="lazy"
+        (error)="registrarErroImagem(eventoPopup)">
+    </div>
+  </div>
+</div>
 
 <div *ngIf="imagemSelecionada" class="event-lightbox" (click)="fecharImagem()">
   <div class="event-lightbox-content" (click)="$event.stopPropagation()">
