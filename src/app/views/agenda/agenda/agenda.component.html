@@ -94,12 +94,12 @@
           </button>
 
           <a
-            *ngIf="evento.htmlLink"
+            *ngIf="getMapsLink(evento)"
             class="btn-google"
-            [href]="evento.htmlLink"
+            [href]="getMapsLink(evento)"
             target="_blank"
             rel="noopener noreferrer">
-            Abrir no Google Agenda
+            Ver endereço no Maps
           </a>
         </div>
 
