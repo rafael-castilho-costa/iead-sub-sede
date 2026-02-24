@@ -47,13 +47,16 @@
           <span class="calendar-day-number">{{ getNumeroDia(celula.date) }}</span>
 
           <div class="calendar-day-events" *ngIf="celula.events.length > 0">
-            <button
-              type="button"
+            <span
               class="calendar-pill"
               *ngFor="let evento of celula.events | slice:0:3"
-              (click)="abrirPopupEvento(evento); $event.stopPropagation()">
+              role="button"
+              tabindex="0"
+              (click)="abrirPopupEvento(evento); $event.stopPropagation()"
+              (keydown.enter)="abrirPopupEvento(evento); $event.stopPropagation()"
+              (keydown.space)="abrirPopupEvento(evento); $event.stopPropagation(); $event.preventDefault()">
               {{ getHoraEvento(evento) }} {{ evento.summary || 'Sem título' }}
-            </button>
+            </span>
             <span class="calendar-more" *ngIf="celula.events.length > 3">+{{ celula.events.length - 3 }} eventos</span>
           </div>
         </button>
