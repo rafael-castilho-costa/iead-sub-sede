@@ -6,7 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 const publicDir = resolve(root, 'public');
 const sitemapPath = resolve(publicDir, 'sitemap.xml');
-const siteUrl = 'https://ieadsubsede.org.br';
+const siteUrl = 'https://iead-jardim-todos-os-santos.online';
 const today = new Date().toISOString().slice(0, 10);
 
 const routes = [
@@ -44,4 +44,3 @@ ${routes
 mkdirSync(publicDir, { recursive: true });
 writeFileSync(sitemapPath, xml, 'utf8');
 console.log(`Sitemap gerado em: ${sitemapPath}`);
-

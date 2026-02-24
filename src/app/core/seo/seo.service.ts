@@ -8,7 +8,7 @@ import { SeoData } from './seo.types';
 })
 export class SeoService {
   private readonly siteName = 'IEAD Jardim Todos os Santos';
-  private readonly siteUrl = 'https://ieadsubsede.org.br';
+  private readonly siteUrl = 'https://iead-jardim-todos-os-santos.online';
   private readonly defaultImage = '/assets/IEAD-SUBSEDE.png';
   private readonly jsonLdScriptId = 'seo-jsonld';
 
@@ -85,4 +85,3 @@ export class SeoService {
     return `${this.siteUrl}${path.startsWith('/') ? path : `/${path}`}`;
   }
 }
-

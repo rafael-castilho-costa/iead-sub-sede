@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ieadsubsede.org.br/sitemap.xml
-
+Sitemap: https://iead-jardim-todos-os-santos.online/sitemap.xml
