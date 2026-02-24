@@ -51,8 +51,8 @@ export class AgendaComponent implements OnInit {
   imagemSelecionada: string | null = null;
   imagemSelecionadaTitulo: string | null = null;
 
-  private readonly calendarId = '9d2fa71088dd0d42b7ae86340904dbc4415abaa0156c9978716f0862624cb800@group.calendar.google.com';
-  private readonly apiKey = 'AIzaSyBMODYR22u6NiHsHoVkdRf8gu6u8otzusY';
+  private readonly calendarId = 'ieadmjts@gmail.com';
+  private readonly apiKey = 'AIzaSyAM19ONBVMFZ5W0w3FuE1yXAD5_EabOo2M';
   private readonly timezone = 'America/Sao_Paulo';
   private requestVersion = 0;
 
