@@ -17,15 +17,15 @@ export class HistoriaComponent {
   readonly blocos: BlocoHistoria[] = [
     {
       titulo: 'Origem da IEAD',
-      placeholder: 'Adicionar aqui o texto sobre o inicio da igreja, fundacao e primeiros anos.'
+      placeholder: 'Em construção'
     },
     {
       titulo: 'Crescimento e Marcos',
-      placeholder: 'Adicionar aqui os principais marcos historicos, datas importantes e expansao.'
+      placeholder: 'Em construção'
     },
     {
       titulo: 'Historia da Sub-Sede',
-      placeholder: 'Adicionar aqui a trajetoria local da Sub-Sede, lideranca e conquistas.'
+      placeholder: 'Em construção'
     }
   ];
 }
